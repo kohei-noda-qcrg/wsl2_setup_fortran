@@ -35,6 +35,7 @@ if ( -not (Test-Path $wslpath)) {
 wsl --install
 wsl --set-default-version 2
 wsl --install -d Ubuntu
+wsl --set-default Ubuntu
 
 ##############################
 # winget setup
