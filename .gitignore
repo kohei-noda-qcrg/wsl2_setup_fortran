@@ -1,4 +1,5 @@
 # ignore dotfiles except .gitignore and .vscode
 .*
+!.editorconfig
 !.gitignore
 !.vscode
