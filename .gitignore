@@ -1,1 +1,4 @@
-.ssh
+# ignore dotfiles except .gitignore and .vscode
+.*
+!.gitignore
+!.vscode
