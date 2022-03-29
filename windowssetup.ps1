@@ -5,13 +5,76 @@
 ##################################
 
 # If even one file($data) does not exist, the script will stop executing.
-$data = @('config.xlaunch', 'Update Anyconnect Adapter Interface Metric for WSL2.xml', 'UpdateAnyConnectInterfaceMetric.ps1', 'vscodeubuntusetup.sh', 'ubuntusoftwareinstall.sh', 'imsautomount.sh', 'copy.ps1', 'copyfile.bat')
+$data = @('config.xlaunch', 'do_not_turn_off.pow','restore_power_settings.ps1', 'Update Anyconnect Adapter Interface Metric for WSL2.xml', 'UpdateAnyConnectInterfaceMetric.ps1', 'vscodeubuntusetup.sh', 'ubuntusoftwareinstall.sh', 'imsautomount.sh', 'copy.ps1', 'copyfile.bat', 'enable_wsl2_feature.ps1')
 $data | ForEach-Object {
     if (!(Test-Path -Path $_ -PathType Leaf)) {
         Write-Host "Error: $_ is not exist."
         Write-Host "Exit."
         exit
     }
+}
+
+######################################
+# Power settings
+######################################
+New-Item -Path $Env:USERPROFILE\power_guid_default_setting -Force -ItemType Directory
+Function getGUID($arg="*"){
+    $flag=0 # If GUID: found, $flag = 1
+    $guid="" # When $flag is 1, get the value of $var divided at that time and set $flag to 0
+    
+    # Get powercfg settings text including $arg
+    $text= powercfg -list | findstr $arg
+    # Split $text
+    $split=$text -split " "
+    foreach($var in $split){
+        # Set $guid to $var when $flag = 1
+        if($flag -eq 1){
+            $guid=$var
+            $flag=0
+        }
+        # If $var="GUID:", set $flag to 1
+        if($var -eq "GUID:"){
+            $flag=1
+        }
+    }
+    if( $guid -eq ""){
+        # Error
+        Write-Host "GUID is empty"
+        return -1
+    }else{
+        Write-Host "Found GUID"
+        return $guid    
+    }
+}
+Function cantgetGUIDerr(){
+    # Quit powercfg setting
+    Write-Host "!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!="
+    Write-Host "<ERROR: powercfg settings GUID obtain error>"
+    Write-Host "Powercfg setting was stopped because GUID could not be obtained."
+    Write-Host "Make sure to manually configure or monitor Windows to prevent it from going to sleep"
+    Write-Host "!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!="
+}
+powercfg -list
+$defaultsetting = -1
+$defaultsetting=getGUID("*")
+if ($defaultsetting -ne -1){
+    Write-Host "GUID of Default power setting is "$defaultsetting
+    Set-Content "$Env:USERPROFILE\power_guid_default_setting\default_power_setting_guid.txt" $defaultsetting
+    cp ".\do_not_turn_off.pow" "$Env:USERPROFILE\Desktop"
+    powercfg -import "$Env:USERPROFILE\Desktop\do_not_turn_off.pow"
+    powercfg -list
+    $do_not_turn_off = -1
+    $do_not_turn_off=getGUID("do_not_turn_off")
+    if ($do_not_turn_off -ne -1){
+        Write-Host "GUID of do_not_turn_off power setting is "$do_not_turn_off
+        powercfg -setactive $do_not_turn_off
+        Write-Host "do_not_turn_off power setting is activated!"
+        powercfg -list
+    }else{
+        cantgetGUIDerr
+    }
+}else{
+    cantgetGUIDerr
 }
 
 ######################################
@@ -27,15 +90,36 @@ schtasks /create /tn autoUpdatAnyconnectAdapterMetrixForWSL2 /xml '.\Update Anyc
 #########################
 # Install wsl (Ubuntu)
 #########################
-$wslpath = "C:\Windows\System32\wsl.exe"
-if ( -not (Test-Path $wslpath)) {
-    invoke-webrequest -uri https://github.com/microsoft/WSL/releases/download/0.56.2/Microsoft.WSL_0.56.2.0_x64_ARM64.msixbundle -outfile $Env:USERPROFILE\Downloads\Microsoft.WSL_0.56.2.0_x64_ARM64.msixbundle -UseBasicParsing
-    Add-AppxPackage -Path $Env:USERPROFILE\Downloads\Microsoft.WSL_0.56.2.0_x64_ARM64.msixbundle
+Function ManuallyInstallWSL2(){
+    # WSL 2 Kernel Update
+    Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi -UseBasicParsing
+    msiexec /i wsl_update_x64.msi /passive /norestart
+    rm wsl_update_x64.msi
+    # Set default WSL version to 2
+    wsl --set-default-version 2
+    # Install Ubuntu
+    Invoke-WebRequest -Uri https://aka.ms/wslubuntu -OutFile linux.appx -UseBasicParsing
+    Add-AppxPackage -Path linux.appx
+    rm linux.appx
 }
-wsl --install
-wsl --set-default-version 2
-wsl --install -d Ubuntu
-wsl --set-default Ubuntu
+# Check if wsl command is recognized on your computer (KB5004296 is required)
+# See also : https://forest.watch.impress.co.jp/docs/news/1342078.html
+$command = "wsl"
+try{
+    if(Get-Command $command){
+        Write-Host "$command exists! try to install Ubuntu using $command command."
+        wsl --install
+        wsl --set-default-version 2
+        wsl --install -d Ubuntu
+        wsl --set-default Ubuntu
+    }else{
+        Write-Host "$command does not exist. To use $command command, Install dependencies."
+        ManuallyInstallWSL2
+    }
+}catch{
+    Write-Host "catch err."
+    ManuallyInstallWSL2
+}
 
 ##############################
 # winget setup
