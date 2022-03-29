@@ -25,7 +25,7 @@ Function getGUID($arg="*"){
         return -1
     }else{
         Write-Host "Found GUID"
-        return $guid    
+        return $guid
     }
 }
 Function cantgetGUIDerr(){
