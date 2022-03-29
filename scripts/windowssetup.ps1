@@ -5,7 +5,7 @@
 ##################################
 
 # If even one file($data) does not exist, the script will stop executing.
-$data = @('config.xlaunch', 'do_not_turn_off.pow','restore_power_settings.ps1', 'Update Anyconnect Adapter Interface Metric for WSL2.xml', 'UpdateAnyConnectInterfaceMetric.ps1', 'vscodeubuntusetup.sh', 'ubuntusoftwareinstall.sh', 'imsautomount.sh', 'copy.ps1', 'copyfile.bat', 'enable_wsl2_feature.ps1')
+$data = @('config.xlaunch', 'do_not_turn_off.pow','restore_power_settings.ps1', 'Update Anyconnect Adapter Interface Metric for WSL2.xml', 'UpdateAnyConnectInterfaceMetric.ps1', 'vscodeubuntusetup.sh', 'ubuntusoftwareinstall.sh', 'imsautomount.sh', 'copy.ps1', 'copyfile.bat', 'enable_wsl2_feature.ps1', "writeubuntusettings.sh")
 $data | ForEach-Object {
     if (!(Test-Path -Path $_ -PathType Leaf)) {
         Write-Host "Error: $_ is not exist."
@@ -21,7 +21,7 @@ New-Item -Path $Env:USERPROFILE\power_guid_default_setting -Force -ItemType Dire
 Function getGUID($arg="*"){
     $flag=0 # If GUID: found, $flag = 1
     $guid="" # When $flag is 1, get the value of $var divided at that time and set $flag to 0
-    
+
     # Get powercfg settings text including $arg
     $text= powercfg -list | findstr $arg
     # Split $text
@@ -43,7 +43,7 @@ Function getGUID($arg="*"){
         return -1
     }else{
         Write-Host "Found GUID"
-        return $guid    
+        return $guid
     }
 }
 Function cantgetGUIDerr(){
@@ -104,10 +104,10 @@ Function ManuallyInstallWSL2(){
 }
 # Check if wsl command is recognized on your computer (KB5004296 is required)
 # See also : https://forest.watch.impress.co.jp/docs/news/1342078.html
-$command = "wsl"
+$wslcommand = "wsl"
 try{
-    if(Get-Command $command){
-        Write-Host "$command exists! try to install Ubuntu using $command command."
+    if(Get-Command $wslcommand){
+        Write-Host "$wslcommand exists! try to install Ubuntu using $wslcommand command."
         wsl --install
         wsl --set-default-version 2
         wsl --install -d Ubuntu
@@ -126,8 +126,8 @@ try{
 ##############################
 # If you don't have winget, Manually install winget on $Env:USERPROFILE\Downloads Folder.
 # See also : https://zenn.dev/nobokko/articles/idea_winget_wsb#windows%E3%82%B5%E3%83%B3%E3%83%89%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%ABwinget%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%97%E3%82%88%E3%81%86%EF%BC%81%E3%81%A8%E3%81%84%E3%81%86%E8%A9%B1
-$wingetpath = "$Env:USERPROFILE\AppData\Local\Microsoft\WindowsApps\winget.exe"
-if ( -not ( Test-Path $wingetpath) ) {
+$winget = "winget"
+if( -not ( Get-Command $wslcommand ) ){
     invoke-webrequest -uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile $Env:USERPROFILE\Downloads\Microsoft.VCLibs.x64.14.00.Desktop.appx -UseBasicParsing
     invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.0.12576/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:USERPROFILE\Downloads\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
     Add-AppxPackage -Path $Env:USERPROFILE\Downloads\Microsoft.VCLibs.x64.14.00.Desktop.appx
