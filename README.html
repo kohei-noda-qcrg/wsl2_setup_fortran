@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>README.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="windows-wsl2-ubuntu%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E8%AA%AC%E6%98%8E%E6%9B%B8">Windows(&amp; WSL2 Ubuntu)セットアップ説明書</h1>
+<!-- vscode-markdown-toc -->
+<ol>
+<li><a href="#attention">注意</a></li>
+<li><a href="#files">ファイル一覧</a></li>
+<li><a href="#setup">セットアップ手順</a></li>
+<li><a href="#whatsdoingthesescripts">このスクリプト群はなにをしているのか？</a></li>
+<li><a href="#whydoyourecommendtousewsl2">なぜWSL2を用いるのか？</a></li>
+</ol>
+<h2 id="1-a-nameattentiona%E6%B3%A8%E6%84%8F">1. <a name='attention'></a>注意</h2>
+<ul>
+<li>
+<p>セットアップ手順を簡単にするためこのファイルが入ったフォルダ(setupwsl2)は<span style="color:darkorange">デスクトップに配置し、フォルダ名をsetupwsl2</span>としてください<br>
+(powershellやwsl2に慣れている人はコマンドのパスをこのファイルが入ったフォルダのパスに置き換えて実行してもらってもよいです)</p>
+<p>以下の画像の様にsetupwsl2フォルダがデスクトップにあればOKです<br>
+<img src="./img/desktop.png" alt="desktop" width="1000"/></p>
+</li>
+<li>
+<p>必要なファイルはスクリプトの最初に自動的に確認され、ファイルが足りない場合はスクリプトは途中で終了し実行されないように作っています</p>
+<blockquote>
+<p>(カスタムを行いたい方へ)<br>
+必要のないスクリプトがあるなどカスタムをしたい場合は./windowssetup.ps1の# Check whether scripts are existのブロックのコードを無効化、もしくは必要ないスクリプトのみファイル存在チェックを外すなどして対応してください</p>
+</blockquote>
+</li>
+<li>
+<p>インターネットとの通信がかなりあるので<span style="color:darkorange">高速で安定なネットワーク(できれば有線)環境下で実行してください</span></p>
+</li>
+<li>
+<p>ノートパソコンの場合<span style="color:darkorange">充電の残量</span>にも注意してください(基本的には充電しながらのセットアップを推奨します)</p>
+</li>
+</ul>
+<h2 id="2-a-namefilesa%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%B8%80%E8%A6%A7">2. <a name='files'></a>ファイル一覧</h2>
+<ul>
+<li>img (README用画像フォルダ)</li>
+<li>scripts (スクリプト&amp;設定ファイル保存フォルダ)
+<ul>
+<li>config.xlaunch (Xサーバ設定用ファイル)</li>
+<li>copy.ps1 (WindowsからUbuntuにファイルコピーをするスクリプト)</li>
+<li>copyfile.bat (ダブルクリックでcopy.ps1を実行するためのファイル)</li>
+<li>do_not_power_off.pow (スクリプト実行中に勝手にスリープ状態にならないようにするための設定ファイル)</li>
+<li>enable_wsl2_feature.ps1 (WSL2の機能を有効化するスクリプト)</li>
+<li>imsautomount.sh (分子研で開発する人のためのスクリプト)</li>
+<li>initialize_windows_settings.ps1 (WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理)</li>
+<li>restore_power_settings.ps1 (セットアップが終わったあとにもとの電源プランに戻すスクリプト)</li>
+<li>setup.bat (Windowsの管理者権限を持っていない人用(いくつかのソフトウェア、タスクの設定は拒否されるため自動化できません))</li>
+<li>ubuntusoftwareinstall.sh (Ubuntuのソフトウェア一括インストールスクリプト)</li>
+<li>Update Anyconnect Adapter interface Metric for WSL2.xml (Ubuntuとwindowsをvpnを使用中でもネットワーク的に繋がるようにする設定のファイル)</li>
+<li>UpdateAnyConnectinterfaceMetric.ps1 (Ubuntuとwindowsをvpnを使用中でもネットワーク的に繋がるようにするスクリプト)</li>
+<li>vscodeubuntusetup.sh (Fortran開発のためのRemote WSL VScodeの設定)</li>
+<li>windowssetup.ps1 (Windowsに開発に必須/便利なソフトウェアのインストールを行うスクリプト)</li>
+<li>writeubuntusettings.sh (Ubuntuの設定ファイルの書き換えスクリプト)</li>
+</ul>
+</li>
+<li>README (このファイル(pdf,html,mdの3つの形式で保存してあります))</li>
+</ul>
+<h2 id="3-a-namesetupa%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86">3. <a name='setup'></a>セットアップ手順</h2>
+<h3 id="31-windows%E4%B8%8A%E3%81%AE%E9%96%8B%E7%99%BA%E3%83%84%E3%83%BC%E3%83%AB%E7%AD%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">3.1. Windows上の開発ツール等のインストール</h3>
+<ul>
+<li>
+<p>powershellを<span style="color:darkorange">管理者で実行</span><br>
+<img src="./img/open_powershell_as_administrator.png" alt="open_powershell_as_administrator" width="1000"/></p>
+<blockquote>
+<p>(powershellを管理者で実行できない場合)<br>
+setupwsl2フォルダにあるsetup.batをダブルクリックしてWindows上の開発ツール等のインストールを行ってください</p>
+<p>ただしこの方法の場合、ユーザ自体が管理者ではない場合はいくつかのソフトウェアがインストールできなかったりするため<br>
+<a href="#whatsdoingthesescripts">必要なソフトウェア等を手動インストール</a>する(このスクリプト群はなにをしているのか？のWindowsの欄のセットアップを手動実行する)ことをお勧めします</p>
+<p>またpowershellが管理者権限で開けないだけでユーザ自体が管理者の場合、VPNの設定を除けば自動インストールが可能ですが<br>
+UAC(ユーザアカウント制御)のポップアップが表示されるのでその度に許可をしてください</p>
+</blockquote>
+</li>
+<li>
+<p>以下のコマンドを実行(WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理をします)</p>
+<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> RemoteSigned <span class="hljs-operator">-File</span> <span class="hljs-string">"initialize_windows_settings.ps1"</span>
+</div></code></pre>
+<img src="./img/enable_wsl2_feature.png" alt="enable_wsl2_feature" width="1000"/>
+<p><span style="color:darkorange">一旦再起動</span>してから再度powershellを管理者権限で開いて以下を実行(各種ソフトウェアのインストールをします)</p>
+<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> RemoteSigned <span class="hljs-operator">-File</span> <span class="hljs-string">"windowssetup.ps1"</span>
+</div></code></pre>
+<img src="./img/run_windowssetup.png" alt="run_windowssetup" width="1000"/>
+<blockquote>
+<p>&lt;注記&gt;<br>
+ソフトウェアのインストールには<a href="https://github.com/microsoft/winget-cli">winget</a>を使っていますが<br>
+<a href="http://mystia04.net/?p=961">wingetコマンド実行中は文字コードがConsolasに変更されて文字化け</a>します<br>
+動作には問題ないため文字化けに関しては無視してください(スクリプトの実行が終了すると文字化けが解消されます)</p>
+</blockquote>
+<p>↓文字化けの様子<br>
+<img src="./img/mojibake.png" alt="mojibake" width="1000"/></p>
+<details><summary style="color:red">Ubuntuが起動してこなかったらここをクリック！</summary><div>
+<blockquote>
+<p>&lt;UbuntuがうまくインストールできずにUbuntuが起動してこない場合&gt;<br>
+まずはWindowsキーを押して、Ubuntuで検索してアプリがヒットしないことを確認してください<br>
+アプリがヒットしない場合は、管理者権限でpowershellを立ち上げて<br>
+wsl --install<br>
+wsl --set-default-version 2<br>
+wsl --install -d Ubuntu<br>
+wsl --set-default Ubuntu<br>
+を1行ずつ実行してどんなエラーが出るかを確認してください<br>
+エラーを確認したら<a href="https://docs.microsoft.com/ja-jp/windows/wsl/troubleshooting#installation-issues">Microsoft公式のWSLインストールに関するトラブルシューティングのリンク</a>を参照して<br>
+該当の項目を探して対応してください<br>
+よくあるインストールできない理由は、BIOSで仮想化が無効化されているパターンです<br>
+BIOS設定の変更方法はCPUやメーカーによって違うので<a href="https://www.google.com/search?q=intel+virtualization+BIOS">Intelで検索</a>または<a href="https://www.google.com/search?q=AMD+virtualization+BIOS">AMDで検索</a>して調べるか、PC本体のマニュアルを参照してください</p>
+</blockquote>
+</detail>
+</li>
+</ul>
+<h3 id="32-wsl2%E4%B8%8A%E3%81%AEubuntu%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97">3.2. WSL2上のUbuntuのセットアップ</h3>
+<ul>
+<li>
+<p>1.のセットアップの途中でUbuntuが立ち上がっているはずなのでUbuntu用のユーザ名とパスワードを作成<br>
+<a href="https://www.aise.ics.saitama-u.ac.jp/~gotoh/HowToInstallUbuntu2004OnWSL2.html#:~:text=%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A%E3%81%8C%E7%B5%82%E3%82%8F%E3%82%8B%E3%81%A8%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E5%90%8D%E3%81%8C%E6%B1%82%E3%82%81%E3%82%89%E3%82%8C%E3%82%8B%E3%80%82">ユーザ名とパスワードの設定方法のリンク</a></p>
+<p>ユーザを正しく作成できたら以下のような画面になっているはずです<br>
+<img src="./img/create_ubuntu_user.png" alt="create_ubuntu_user" width="1000"/></p>
+<details><summary style="color:red">ユーザ作成がうまくいかなかったらここをクリック！</summary><div>
+<blockquote>
+<p>&lt;ユーザ作成がうまくいかなかった場合&gt;<br>
+途中でUbuntuが強制終了するなどしてユーザが正常に作成出来なかった場合は<br>
+Windowsキーを押して、Ubuntuで検索してUbuntuを立ち上げると以下のようなrootという文字列が表示されるはずです<br>
+<img src="./img/root.png" alt="root" width="1000"/></p>
+<ul>
+<li>
+<p>rootという文字列が表示されてこない場合</p>
+<p>この場合は、念のため一度セットアップをやり直しましょう<br>
+<a href="https://qiita.com/PoodleMaster/items/b54db3608c4d343d27c4#-ubuntu%E3%81%AE%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88%E6%96%B9%E6%B3%95">Ubuntuのリセット方法</a>を参考にしてUbuntuをリセットし、Windowsを再起動した後、<a href="#setup">セットアップ手順</a>からやり直してください</p>
+</li>
+<li>
+<p>rootという文字列が表示された場合</p>
+<p>Ubuntuで</p>
+<pre class="hljs"><code><div>  adduser 作りたいユーザ名
+</div></code></pre>
+<p>を実行するとユーザを作成できます<br>
+このとき2回のパスワード入力後にもいくつかの質問項目が表示され、答えるように促されますが無視して何も入力せずEnterキー連打で構いません<br>
+正しく実行できると以下のような表示になります<br>
+<img src="./img/adduser.png" alt="adduser" width="1000"/><br>
+次に以下のコマンドを実行します</p>
+<pre class="hljs"><code><div>  gpasswd -a 作ったユーザ名 sudo
+</div></code></pre>
+<p>正しく実行できたら以下のような表示になります<br>
+<img src="./img/gpasswd_add_sudo.png" alt="gpasswd_add_sudo" width="500"/><br>
+次にpowershellを開いて以下のコマンドを実行します</p>
+<pre class="hljs"><code><div>  ubuntu config -<span class="hljs-literal">-default</span><span class="hljs-literal">-user</span> 作ったユーザ名
+</div></code></pre>
+<img src="./img/change_default_user.png" alt="change_default_user" width="1000"/>
+<p>Ubuntuを閉じて再度起動し以下の画像のように作ったユーザ名が表示されれば設定は完了です<br>
+<img src="./img/complete_to_create_user.png" alt="complete_to_create_user" width="1000"/><br>
+正しく実行できたら次の項目に進んでください</p>
+</li>
+</ul>
+</blockquote>
+</div></details>
+</li>
+<li>
+<p>WSL2用のスクリプトをwindowsからUbuntuにコピー</p>
+<blockquote>
+<p>setupwsl2フォルダの<br>
+copyfile.bat(設定によりcopyfileというファイル名だけ表示されている場合もあります)<br>
+をダブルクリックしてスクリプトを実行してください</p>
+</blockquote>
+<p>正しく実行出来た場合、スクリプト実行後Ubuntuでlsと入力し、Enterを押すと以下の画像のように4つのファイルがあるはずです<br>
+<img src="./img/ls.png" alt="ls" width="1000"/></p>
+</li>
+<li>
+<p>WSL2用のスクリプトを実行</p>
+<pre class="hljs"><code><div>  <span class="hljs-variable">$HOME</span>/writeubuntusettings.sh &amp;&amp; <span class="hljs-variable">$HOME</span>/ubuntusoftwareinstall.sh
+</div></code></pre>
+<img src="./img/run_ubuntusetup.png" alt="run_ubuntusetup" width="1000"/>
+<p>実行時にパスワードを聞かれるので先ほど設定したパスワードを入力してください</p>
+<details><summary  style="color:red" style="color:red">途中でUbuntuが強制終了したり、正常にスクリプトが終わらなかったらここをクリック！</summary><div>
+<blockquote>
+<p>&lt;途中でUbuntuが強制終了した場合&gt;<br>
+スクリプト実行中にパッケージのエラー等によりUbuntuが強制終了する場合があります<br>
+その場合は$HOME/ubuntusoftwareinstall.shを実行しなおしてください</p>
+<p>(実行コマンド)</p>
+<pre class="hljs"><code><div>  <span class="hljs-variable">$HOME</span>/ubuntusoftwareinstall.sh
+</div></code></pre>
+<p>実行しなおしてもスクリプトの最終出力である<br>
+WSL2 ubuntu setting write script ended. Please restrat WSL2.<br>
+が表示されない場合は、画面に解決方法が書いてあるはずなので<br>
+そのコマンドを実行してから再度$HOME/ubuntusoftwareinstall.shを実行しなおしてください</p>
+</blockquote>
+<div></details>
+<p>↓正常にセットアップが終了した際の表示<br>
+<img src="./img/end_ubuntusetup_properly.png" alt="end_ubuntusetup_properly" width="1000"/></p>
+</li>
+<li>
+<p>WSLを再起動</p>
+<p>Powershellを起動してWSLをシャットダウン</p>
+<pre class="hljs"><code><div>  wsl -<span class="hljs-literal">-shutdown</span>
+</div></code></pre>
+<img src="./img/shutdown_wsl2.png" alt="shutdown_wsl2" width="1000"/>
+<p><a href="https://www.google.com/search?q=+%E3%82%A2%E3%83%97%E3%83%AA+%E6%A4%9C%E7%B4%A2+windowskey">windows keyからUbuntuを検索</a>して起動<br>
+<img src="./img/launch_ubuntu.png" alt="launch_ubuntu" width="1000"/></p>
+</li>
+<li>
+<p>VScode用のスクリプトを実行</p>
+<pre class="hljs"><code><div>  <span class="hljs-variable">$HOME</span>/vscodeubuntusetup.sh
+</div></code></pre>
+<img src="./img/vscode_ubuntusetup.png" alt="vscode_ubuntusetup" width="1000"/>
+</li>
+<li>
+<p>VScodeが起動してくるのでMaterial Icon Themeを有効化<br>
+<a href="https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme#:~:text=One%2Dclick%20activation">Material Icon ThemeのOne-click activation</a>を参考にして有効化してください<br>
+<img src="./img/activate_material_icon.png" alt="activate_material_icon" width="1000"/></p>
+</li>
+</ul>
+<h3 id="33-%E9%9B%BB%E6%BA%90%E3%83%97%E3%83%A9%E3%83%B3%E3%82%92%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AB%E6%88%BB%E3%81%99">3.3. 電源プランをデフォルトに戻す</h3>
+<p>ここまでで自動実行に時間がかかるスクリプトは終了なので、initialize_windows_settings.ps1内で変更していた電源プラン(スリープしないようにする設定)をデフォルトに戻します<br>
+powershellを管理者権限で開いて以下のコマンドを実行します</p>
+<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> RemoteSigned <span class="hljs-operator">-File</span> <span class="hljs-string">"restore_power_settings.ps1"</span>
+</div></code></pre>
+  <img src="./img/restore_power_settings.png" alt="restore_power_settings" width="1000"/>
+<p>正常にスクリプトが終了しない場合は<a href="https://pc-karuma.net/windows10-power-settings/#%E9%9B%BB%E6%BA%90%E3%83%97%E3%83%A9%E3%83%B3%E3%81%AE%E5%A4%89%E6%9B%B4">電源プランの設定方法のリンク</a>を参照して電源プランを<span style="color:red">&quot;do_not_turn_off&quot;以外</span>にしてください(オススメは&quot;バランス&quot;です)</p>
+<h3 id="34-ssh%E3%81%AE%E8%A8%AD%E5%AE%9A">3.4. SSHの設定</h3>
+<p><span style="color:darkorange">計算機へのログインのためのユーザを作成済み</span>の場合、以下の設定を行ってください</p>
+<ul>
+<li>
+<p>(公開鍵ログインの場合)秘密鍵を$HOME/.ssh/にコピー<br>
+(例) C:\Users\noda\.ssh\ims_rsa という秘密鍵ファイルを持っている場合、Ubuntuで以下のコマンドを実行</p>
+<pre class="hljs"><code><div>  cp /mnt/c/Users/noda/.ssh/ims_rsa <span class="hljs-variable">$HOME</span>/.ssh/
+</div></code></pre>
+</li>
+<li>
+<p>権限の変更<br>
+Ubuntuで以下のコマンドを実行</p>
+<pre class="hljs"><code><div>  chmod 600 <span class="hljs-variable">$HOME</span>/.ssh/*
+</div></code></pre>
+</li>
+<li>
+<p><a href="https://qiita.com/passol78/items/2ad123e39efeb1a5286b#sshconfig%E3%82%92%E6%9B%B8%E3%81%8F%E3%81%A8%E4%BD%95%E3%81%8C%E5%AC%89%E3%81%97%E3%81%84%E3%81%8B">$HOME/.ssh/config</a>の編集<br>
+Ubuntuで以下のコマンドを実行</p>
+<pre class="hljs"><code><div>  nano <span class="hljs-variable">$HOME</span>/.ssh/config
+</div></code></pre>
+<p>こんな感じの画面が表示されるはずです<br>
+<span style="color:darkorange">矢印キーで移動,ctrl+sで上書き保存,ctrl+xでnanoを閉じられます</span><br>
+<img src="./img/nano_sshconfig.png" alt="nano_sshconfig" width="1000"/></p>
+</li>
+<li>
+<p>ssh設定のテンプレートファイルが開かれるので編集してください</p>
+<p>&lt;$HOME/.ssh/configのテンプレート&gt;</p>
+<pre class="hljs"><code><div>  ServerAliveInterval 60
+  ServerAliveCountMax 10
+
+  Host ims
+    HostName ccfep.center.ims.ac.jp
+    User {USER_NAME}
+    IdentityFile {IdentityFilePath}
+    ForwardX11  yes
+    ForwardX11Trusted yes
+</div></code></pre>
+<p>ここまでの設定を行うとUbuntuで</p>
+<pre class="hljs"><code><div>  ssh ims
+</div></code></pre>
+<p>などと打ち込むだけでsshサーバにログイン可能になります<br>
+<a href="https://runble1.com/scp-config/#toc2">scpコマンド</a>などもimsやrelqc01などのHost名で指定できるのでコマンドの簡略化につながります</p>
+</li>
+</ul>
+<h3 id="34-%E5%88%86%E5%AD%90%E7%A0%94%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92vscode%E3%81%A7%E7%B7%A8%E9%9B%86%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B">3.4. 分子研のファイルをVScodeで編集可能にする</h3>
+<blockquote>
+<p><strong>!!!!!!!!!!! 注意 !!!!!!!!!!!<br>
+この手順を行うと自動マウントの設定が行われるため<br>
+Ubuntuの起動とsource $HOME/.profileの実行完了に時間がかかるようになります<br>
+従って分子研でプログラム開発を行っていて、かつVScodeを使って編集したい場合のみ以下の手順を実行してください</strong></p>
+</blockquote>
+  <details><summary style="color:red">ここをクリックしてコマンドを表示</summary>
+<blockquote>
+<p>以下のコマンドをUbuntuで実行してください</p>
+<pre class="hljs"><code><div> <span class="hljs-variable">$HOME</span>/imsautomount.sh
+</div></code></pre>
+<p>実行時、分子研のユーザ名の入力を求めるように作ってあります<br>
+聞かれたら分子研のユーザ名を入力してください<br>
+source $HOME/.profile を実行するか、Ubuntuの再起動後に設定が適用されます<br>
+(免責事項 : ユーザデータの取得が目的ではなく、ディレクトリの作成と自動マウントコマンドの作成にユーザ名を使用しています。ユーザデータをサーバ等に送信はしていません。スクリプトの内容は cat $HOME/imsautomount.sh ですべて確認できます。)<br>
+後から自動マウントをしないように変更したい場合、まずUbuntuで</p>
+<pre class="hljs"><code><div>  imsumount
+</div></code></pre>
+<p>を実行した後(Ubuntuのパスワードの入力が求められる場合があります) $HOME/.profileの以下の内容を削除してください</p>
+<pre class="hljs"><code><div>alias mount='sshfs -o uid=`id -u` -o gid=`id -g` -o allow_other -o nonempty ims:/home/users/分子研でのユーザ名 $HOME/分子研でのユーザ名'
+if [ &quot;$(ls $HOME/分子研でのユーザ名)&quot; ]; then
+     echo &quot;$HOME/分子研でのユーザ名 is not empty.&quot;
+else
+     mount  
+fi
+alias imsumount='sudo umount -f $HOME/sm2'
+</div></code></pre>
+<p>source $HOME/.profile を実行するか、Ubuntuの再起動後に設定が適用されます</p>
+</blockquote>
+  </details>
+<h3 id="35-cisco-anyconnect%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABhinet%E5%A4%96%E9%83%A8%E3%81%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%8B%E3%82%89-relqc-system-%E6%8E%A5%E7%B6%9A%E6%99%82%E3%81%AB%E5%BF%85%E8%A6%81">3.5. Cisco anyconnectのインストール(HINET外部のネットワークから relqc system 接続時に必要)</h3>
+<ul>
+<li>
+<p>以下のリンクにアクセスしてCisco anyconnectをダウンロード<br>
+<a href="https://www2.media.hiroshima-u.ac.jp/sso/vpngw/anyconnect-win-4.10.05085-core-vpn-predeploy-k9.msi">https://www2.media.hiroshima-u.ac.jp/sso/vpngw/anyconnect-win-4.10.05085-core-vpn-predeploy-k9.msi</a></p>
+</li>
+<li>
+<p>ダウンロードしたファイルをダブルクリック、ダウンロード</p>
+<p>詳しい使い方は <a href="https://www.media.hiroshima-u.ac.jp/services/hinet/vpngw/#setting">https://www.media.hiroshima-u.ac.jp/services/hinet/vpngw/#setting</a> を参照してください</p>
+</li>
+</ul>
+<h2 id="4-a-namewhatsdoingthesescriptsa%E3%81%93%E3%81%AE%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%97%E3%83%88%E7%BE%A4%E3%81%AF%E3%81%AA%E3%81%AB%E3%82%92%E3%81%97%E3%81%A6%E3%81%84%E3%82%8B%E3%81%AE%E3%81%8B">4. <a name='whatsdoingthesescripts'></a>このスクリプト群はなにをしているのか？</h2>
+<p>以下のことを自動実行しています</p>
+<ul>
+<li>Windows(powershellを管理者で実行できない場合は電源設定以外のこれらの設定を手動で行ってください)
+<ul>
+<li>スクリプト実行中に<a href="https://docs.microsoft.com/ja-jp/windows-hardware/design/device-experiences/powercfg-command-line-options">Windowsが勝手にスリープ状態にならないようにする</a></li>
+<li><a href="https://zenn.dev/hashiba/articles/wls2-on-cisco-anyconnect#%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E8%A8%AD%E5%AE%9A">Cisco any connectの設定</a>(Ubuntu使用時)</li>
+<li>必要なソフトウェア<a href="https://code.visualstudio.com/">VScode</a>, <a href="https://sevenzip.osdn.jp/">7zip</a>, <a href="https://winscp.net/eng/index.php">WinSCP</a>, <a href="https://gitforwindows.org/">Git for windows</a>, <a href="https://www.microsoft.com/ja-jp/p/windows-terminal/9n0dx20hk701">Windows Terminal</a>, <a href="https://ttssh2.osdn.jp/index.html.ja">Teraterm</a>, <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a>のインストール</li>
+<li><a href="https://docs.microsoft.com/windows/wsl/install">WSLおよびUbuntuのインストール</a></li>
+</ul>
+</li>
+<li>WSL2
+<ul>
+<li>writeubuntusettings.sh
+<ul>
+<li><a href="https://zuntan02.hateblo.jp/entry/2020/08/07/120007">DNSの不備が生じる可能性</a>を排除するため使用するDNSサーバを8.8.8.8に固定化</li>
+<li>(分子研環境用)分子研のファイルをVScodeを使って編集するために/etc/fuse.confにuser_allow_otherを追加</li>
+<li>Xサーバを用いてGUIアプリを開くときのDISPLAYの設定がWSL起動時に毎回変わるので<a href="https://github.com/microsoft/WSL/issues/4106#issuecomment-721750322">DISPLAYの設定自体を自動化</a></li>
+<li>$HOME/.ssh/configにsshの設定のテンプレートを作成</li>
+<li><a href="https://askubuntu.com/questions/683406/how-to-automate-dpkg-reconfigure-locales-with-one-command">localeの設定</a>(en_US-UTF8に設定しています)</li>
+</ul>
+</li>
+<li>ubuntusoftwareinstall.sh
+<ul>
+<li>OSのアップデート</li>
+<li>gcc,gfortran関連で必要なライブラリをインストール</li>
+<li>(分子研環境用)<a href="https://github.com/libfuse/sshfs/blob/master/README.rst">sshfs</a>をインストール</li>
+<li>python,pipをインストール</li>
+<li>pythonのデフォルトバージョンを3系に設定</li>
+<li>gfortranをインストール</li>
+<li>pythonのライブラリのインストール</li>
+</ul>
+</li>
+<li>vscodeubuntusetup.sh
+<ul>
+<li>Fortran開発のためのVScodeの設定ファイルの作成</li>
+<li>VScode拡張機能のインストール</li>
+</ul>
+</li>
+<li>imsautomount.sh(分子研環境用)
+<ul>
+<li>Ubuntuログイン時に$HOME/sm2に分子研の/home/users/sm2を<a href="https://atmarkit.itmedia.co.jp/ait/articles/1802/15/news035.html">マウント</a>する設定</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-a-namewhydoyourecommendtousewsl2a%E3%81%AA%E3%81%9Cwsl2%E3%82%92%E7%94%A8%E3%81%84%E3%82%8B%E3%81%AE%E3%81%8B">5. <a name='whydoyourecommendtousewsl2'></a>なぜWSL2を用いるのか？</h2>
+<ul>
+<li>Windowsを使いつつ、簡単に(ほぼ)Linuxの環境も実行可能だからです
+<ul>
+<li><a href="https://docs.microsoft.com/ja-jp/windows/wsl/faq">WSL2についての公式のFAQ(WSLの利点についても書かれています)</a></li>
+<li><a href="https://docs.microsoft.com/ja-jp/windows/wsl/setup/environment">WSL2を用いた開発環境の構築についての公式記事</a></li>
+</ul>
+</li>
+</ul>
+
+</body>
+</html>
