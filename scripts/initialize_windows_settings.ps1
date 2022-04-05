@@ -13,6 +13,18 @@ $data | ForEach-Object {
         exit
     }
 }
+# Check windows version
+$version = Get-WmiObject Win32_OperatingSystem | findstr "BuildNumber"
+$winverlist = $version -split " +"
+$winver = $winverlist[-1]
+
+if ($winver -lt 18362){
+    Write-Host "================================="
+    Write-Host "ERROR: Your windows build version is $winver.`nWSL requires windows build version >= 18362.`nSo you must upgrade Windows OS at least build 18362(ver.1903).`nExit."
+    Write-Host "================================="
+    exit
+}
+
 # Enable wsl feature
 dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
 # Enable Virtual Machine platform feature
