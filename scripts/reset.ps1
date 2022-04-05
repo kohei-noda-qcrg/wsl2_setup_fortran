@@ -85,8 +85,8 @@ winget uninstall --silent Git.Git
 
 # Teraterm (https://ttssh2.osdn.jp/) is a terminal software.
 # If you don't like other terminal softwares, you can use this software.
-#winget uninstall --silent TeraTermProject.teraterm --accept-source-agreements
+winget uninstall --silent TeraTermProject.teraterm --accept-source-agreements
 
 # VcXsrv (https://sourceforge.net/projects/vcxsrv/) is a X-server software.
 # If you want to use GUI software when you use CLI WSL linux, VcXsrv supports this(GUI) feature.
-#winget uninstall --silent marha.VcXsrv
+winget uninstall --silent marha.VcXsrv
