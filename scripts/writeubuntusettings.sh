@@ -13,6 +13,9 @@ fi
 sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
 echo -e "DNS server settings successed"
 
+# Enable WSL2 to change permissions on Windows files.
+sudo sh -c 'echo "[automount]\noptions = \"metadata\"" > /etc/wsl.conf'
+
 # Allow specify other users when using sshfs
 sudo sh -c 'echo user_allow_other >> /etc/fuse.conf'
 echo -e "SFTP setting successed"
