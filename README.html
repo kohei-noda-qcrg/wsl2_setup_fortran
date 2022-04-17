@@ -368,19 +368,26 @@ code {
 <h1 id="windows-wsl2-ubuntu%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E8%AA%AC%E6%98%8E%E6%9B%B8">Windows(&amp; WSL2 Ubuntu)セットアップ説明書</h1>
 <!-- vscode-markdown-toc -->
 <ol>
+<li><a href="#introduction">はじめに</a></li>
 <li><a href="#attention">注意</a></li>
-<li><a href="#files">ファイル一覧</a></li>
 <li><a href="#setup">セットアップ手順</a></li>
 <li><a href="#whatsdoingthesescripts">このスクリプト群はなにをしているのか？</a></li>
 <li><a href="#whydoyourecommendtousewsl2">なぜWSL2を用いるのか？</a></li>
+<li><a href="#files">ファイル一覧</a></li>
 </ol>
-<h2 id="1-a-nameattentiona%E6%B3%A8%E6%84%8F">1. <a name='attention'></a>注意</h2>
+<h2 id="1-a-nameintroductiona%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB">1. <a name='introduction'></a>はじめに</h2>
+<p>このリポジトリはリモートサーバでFortranのコードを開発している人に向けて、できるだけ簡単にVisual Studio CodeとWSL2(Ubuntu)のセットアップを可能にするために作られたスクリプト群です</p>
+<p>このスクリプトを実行することで以下のことができるようになります</p>
+<ul>
+<li><a href="https://code.visualstudio.com/">Visual Studio Code</a>でFortranのコードの開発が可能になる</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh">Remote-SSH</a>を使うことで、リモートサーバのファイルをVisual Studio Codeを使って直接編集できるようになる(<a href="https://code.visualstudio.com/docs/remote/linux">一定以上のバージョンのOS</a>がインストールされているサーバのみ)</li>
+<li><a href="https://marketplace.visualstudio.com/items?itemName=krvajalm.linter-gfortran">Modern Fortran</a>を用いることで、Visual Studio Codeで開発中に、シンタックスハイライトやリンティングなどの開発に便利な機能を使用できるようになる</li>
+<li>$HOME/.ssh/configを編集することで、sshやrsync,scpなどのコマンドの手順を簡略化できるようになる</li>
+</ul>
+<h2 id="2-a-nameattentiona%E6%B3%A8%E6%84%8F">2. <a name='attention'></a>注意</h2>
 <ul>
 <li>
-<p>セットアップ手順を簡単にするためこのファイルが入ったフォルダ(setupwsl2)は<span style="color:darkorange">デスクトップに配置し、フォルダ名をsetupwsl2</span>としてください<br>
-(powershellやwsl2に慣れている人はコマンドのパスをこのファイルが入ったフォルダのパスに置き換えて実行してもらってもよいです)</p>
-<p>以下の画像の様にsetupwsl2フォルダがデスクトップにあればOKです<br>
-<img src="./img/desktop.png" alt="desktop" width="1000"/></p>
+<p>各コマンドは選択してctrl+cでコピー、右クリックで貼り付けすることができます(Ubuntuはデフォルトではctrl+vで貼り付けはできないので、右クリックで貼り付けを行ってください)</p>
 </li>
 <li>
 <p>必要なファイルはスクリプトの最初に自動的に確認され、ファイルが足りない場合はスクリプトは途中で終了し実行されないように作っています</p>
@@ -396,54 +403,57 @@ code {
 <p>ノートパソコンの場合<span style="color:darkorange">充電の残量</span>にも注意してください(基本的には充電しながらのセットアップを推奨します)</p>
 </li>
 </ul>
-<h2 id="2-a-namefilesa%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%B8%80%E8%A6%A7">2. <a name='files'></a>ファイル一覧</h2>
-<ul>
-<li>img (README用画像フォルダ)</li>
-<li>scripts (スクリプト&amp;設定ファイル保存フォルダ)
-<ul>
-<li>config.xlaunch (Xサーバ設定用ファイル)</li>
-<li>copy.ps1 (WindowsからUbuntuにファイルコピーをするスクリプト)</li>
-<li>copyfile.bat (ダブルクリックでcopy.ps1を実行するためのファイル)</li>
-<li>do_not_power_off.pow (スクリプト実行中に勝手にスリープ状態にならないようにするための設定ファイル)</li>
-<li>enable_wsl2_feature.ps1 (WSL2の機能を有効化するスクリプト)</li>
-<li>imsautomount.sh (分子研で開発する人のためのスクリプト)</li>
-<li>initialize_windows_settings.ps1 (WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理)</li>
-<li>restore_power_settings.ps1 (セットアップが終わったあとにもとの電源プランに戻すスクリプト)</li>
-<li>setup.bat (Windowsの管理者権限を持っていない人用(いくつかのソフトウェア、タスクの設定は拒否されるため自動化できません))</li>
-<li>ubuntusoftwareinstall.sh (Ubuntuのソフトウェア一括インストールスクリプト)</li>
-<li>Update Anyconnect Adapter interface Metric for WSL2.xml (Ubuntuとwindowsをvpnを使用中でもネットワーク的に繋がるようにする設定のファイル)</li>
-<li>UpdateAnyConnectinterfaceMetric.ps1 (Ubuntuとwindowsをvpnを使用中でもネットワーク的に繋がるようにするスクリプト)</li>
-<li>vscodeubuntusetup.sh (Fortran開発のためのRemote WSL VScodeの設定)</li>
-<li>windowssetup.ps1 (Windowsに開発に必須/便利なソフトウェアのインストールを行うスクリプト)</li>
-<li>writeubuntusettings.sh (Ubuntuの設定ファイルの書き換えスクリプト)</li>
-</ul>
-</li>
-<li>README (このファイル(pdf,html,mdの3つの形式で保存してあります))</li>
-</ul>
 <h2 id="3-a-namesetupa%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E6%89%8B%E9%A0%86">3. <a name='setup'></a>セットアップ手順</h2>
+<h3 id="31-%E3%83%AA%E3%83%9D%E3%82%B8%E3%83%88%E3%83%AA%E3%81%AE%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%A8%E9%85%8D%E7%BD%AE">3.1. リポジトリのダウンロードと配置</h3>
+<ul>
+<li>
+<p><a href="https://github.com/kohei-noda-qcrg/wsl2_setup_fortran">このリポジトリ</a>にアクセスして<span style="background-color:darkgreen;color:white">Code</span>からZipファイルをダウンロードします
+<img src="./img/download_from_github.jpeg" alt="desktop" width="1000"/></p>
+</li>
+<li>
+<p>セットアップ手順を簡単にするためダウンロードしたzipファイル(wsl2_setup_fortran-main)を<span style="color:darkorange">デスクトップに配置</span>してください<br>
+(powershellやwsl2に慣れている人は以降のコマンドのパスをzipファイルを展開したあとのフォルダのパスに置き換えて実行してもらってもよいです)</p>
+<p>以下の画像のようにwsl2_setup_fortran-mainフォルダがデスクトップにあればOKです<br>
+<img src="./img/unzip00.png" alt="desktop" width="1000"/></p>
+</li>
+<li>
+<p>デスクトップに配置したzipファイルの上で右クリックし、すべて展開(T)...を選択します
+<img src="./img/unzip01.png" alt="desktop" width="1000"/></p>
+</li>
+<li>
+<p>以下のようなウィンドウが表示されるので展開(E)を選択します
+<img src="./img/unzip02.png" alt="desktop" width="1000"/></p>
+</li>
+<li>
+<p>以下の画像のようにデスクトップにwsl2_setup_fortran-mainフォルダが表示されればOKです
+<img src="./img/unzip03.png" alt="desktop" width="1000"/></p>
+</li>
+</ul>
 <h3 id="31-windows%E4%B8%8A%E3%81%AE%E9%96%8B%E7%99%BA%E3%83%84%E3%83%BC%E3%83%AB%E7%AD%89%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB">3.1. Windows上の開発ツール等のインストール</h3>
 <ul>
 <li>
-<p>powershellを<span style="color:darkorange">管理者で実行</span><br>
+<p>powershellを<span style="color:darkorange">管理者で実行</span>します<br>
 <img src="./img/open_powershell_as_administrator.png" alt="open_powershell_as_administrator" width="1000"/></p>
+<details><summary style="color:red">powershellを管理者で実行できない場合</summary><div>
 <blockquote>
 <p>(powershellを管理者で実行できない場合)<br>
-setupwsl2フォルダにあるsetup.batをダブルクリックしてWindows上の開発ツール等のインストールを行ってください</p>
+wsl2_setup_fortran-main/scriptsフォルダにあるsetup.batをダブルクリックしてWindows上の開発ツール等のインストールを行ってください</p>
 <p>ただしこの方法の場合、ユーザ自体が管理者ではない場合はいくつかのソフトウェアがインストールできなかったりするため<br>
 <a href="#whatsdoingthesescripts">必要なソフトウェア等を手動インストール</a>する(このスクリプト群はなにをしているのか？のWindowsの欄のセットアップを手動実行する)ことをお勧めします</p>
 <p>またpowershellが管理者権限で開けないだけでユーザ自体が管理者の場合、VPNの設定を除けば自動インストールが可能ですが<br>
 UAC(ユーザアカウント制御)のポップアップが表示されるのでその度に許可をしてください</p>
 </blockquote>
+</div></details>
 </li>
 <li>
 <p>以下のコマンドを実行(WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理をします)</p>
-<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
-  powershell <span class="hljs-literal">-ExecutionPolicy</span> RemoteSigned <span class="hljs-operator">-File</span> <span class="hljs-string">"initialize_windows_settings.ps1"</span>
+<pre class="hljs"><code><div>  cd ~/Desktop/wsl2_setup_fortran<span class="hljs-literal">-main</span>/wsl2_setup_fortran<span class="hljs-literal">-main</span>/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> ByPass <span class="hljs-operator">-File</span> <span class="hljs-string">"initialize_windows_settings.ps1"</span>
 </div></code></pre>
 <img src="./img/enable_wsl2_feature.png" alt="enable_wsl2_feature" width="1000"/>
 <p><span style="color:darkorange">一旦再起動</span>してから再度powershellを管理者権限で開いて以下を実行(各種ソフトウェアのインストールをします)</p>
-<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
-  powershell <span class="hljs-literal">-ExecutionPolicy</span> RemoteSigned <span class="hljs-operator">-File</span> <span class="hljs-string">"windowssetup.ps1"</span>
+<pre class="hljs"><code><div>  cd ~/Desktop/wsl2_setup_fortran<span class="hljs-literal">-main</span>/wsl2_setup_fortran<span class="hljs-literal">-main</span>/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> ByPass <span class="hljs-operator">-File</span> <span class="hljs-string">"windowssetup.ps1"</span>
 </div></code></pre>
 <img src="./img/run_windowssetup.png" alt="run_windowssetup" width="1000"/>
 <blockquote>
@@ -489,7 +499,13 @@ Windowsキーを押して、Ubuntuで検索してUbuntuを立ち上げると以�
 <li>
 <p>rootという文字列が表示されてこない場合</p>
 <p>この場合は、念のため一度セットアップをやり直しましょう<br>
-<a href="https://qiita.com/PoodleMaster/items/b54db3608c4d343d27c4#-ubuntu%E3%81%AE%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88%E6%96%B9%E6%B3%95">Ubuntuのリセット方法</a>を参考にしてUbuntuをリセットし、Windowsを再起動した後、<a href="#setup">セットアップ手順</a>からやり直してください</p>
+powershellを管理者権限で開いて以下のコマンドを実行します</p>
+<pre class="hljs"><code><div>  cd ~/Desktop/wsl2_setup_fortran<span class="hljs-literal">-main</span>/wsl2_setup_fortran<span class="hljs-literal">-main</span>/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> ByPass <span class="hljs-operator">-File</span> <span class="hljs-string">"reset.ps1"</span>
+</div></code></pre>
+<p>実行が終わったらWindowsを再起動した後、<a href="#setup">セットアップ手順</a>からやり直してください
+reset.ps1も正常に動かない場合は</p>
+<p><a href="https://qiita.com/PoodleMaster/items/b54db3608c4d343d27c4#-ubuntu%E3%81%AE%E3%83%AA%E3%82%BB%E3%83%83%E3%83%88%E6%96%B9%E6%B3%95">Ubuntuのリセット方法</a>を参考にしてUbuntuをリセットし、Windowsを再起動した後、<a href="#setup">セットアップ手順</a>からやり直してください</p>
 </li>
 <li>
 <p>rootという文字列が表示された場合</p>
@@ -519,11 +535,10 @@ Windowsキーを押して、Ubuntuで検索してUbuntuを立ち上げると以�
 </li>
 <li>
 <p>WSL2用のスクリプトをwindowsからUbuntuにコピー</p>
-<blockquote>
-<p>setupwsl2フォルダの<br>
-copyfile.bat(設定によりcopyfileというファイル名だけ表示されている場合もあります)<br>
-をダブルクリックしてスクリプトを実行してください</p>
-</blockquote>
+<p>powershellを新しく管理者権限で開き、以下のコマンドを実行します</p>
+<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> Bypass <span class="hljs-operator">-File</span> <span class="hljs-string">"copy.ps1"</span>
+</div></code></pre>
 <p>正しく実行出来た場合、スクリプト実行後Ubuntuでlsと入力し、Enterを押すと以下の画像のように4つのファイルがあるはずです<br>
 <img src="./img/ls.png" alt="ls" width="1000"/></p>
 </li>
@@ -537,8 +552,15 @@ copyfile.bat(設定によりcopyfileというファイル名だけ表示され�
 <blockquote>
 <p>&lt;途中でUbuntuが強制終了した場合&gt;<br>
 スクリプト実行中にパッケージのエラー等によりUbuntuが強制終了する場合があります<br>
-その場合は$HOME/ubuntusoftwareinstall.shを実行しなおしてください</p>
+その場合は一旦Ubuntuをシャットダウンしてから$HOME/ubuntusoftwareinstall.shを実行しなおしてください</p>
 <p>(実行コマンド)</p>
+<p>Powershellを起動してWSLをシャットダウン</p>
+<pre class="hljs"><code><div>  wsl -<span class="hljs-literal">-shutdown</span>
+</div></code></pre>
+<img src="./img/shutdown_wsl2.png" alt="shutdown_wsl2" width="1000"/>
+<p><a href="https://www.google.com/search?q=+%E3%82%A2%E3%83%97%E3%83%AA+%E6%A4%9C%E7%B4%A2+windowskey">windows keyからUbuntuを検索</a>して起動<br>
+<img src="./img/launch_ubuntu.png" alt="launch_ubuntu" width="1000"/></p>
+<p>$HOME/ubuntusoftwareinstall.shを実行しなおす</p>
 <pre class="hljs"><code><div>  <span class="hljs-variable">$HOME</span>/ubuntusoftwareinstall.sh
 </div></code></pre>
 <p>実行しなおしてもスクリプトの最終出力である<br>
@@ -574,8 +596,8 @@ WSL2 ubuntu setting write script ended. Please restrat WSL2.<br>
 <h3 id="33-%E9%9B%BB%E6%BA%90%E3%83%97%E3%83%A9%E3%83%B3%E3%82%92%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AB%E6%88%BB%E3%81%99">3.3. 電源プランをデフォルトに戻す</h3>
 <p>ここまでで自動実行に時間がかかるスクリプトは終了なので、initialize_windows_settings.ps1内で変更していた電源プラン(スリープしないようにする設定)をデフォルトに戻します<br>
 powershellを管理者権限で開いて以下のコマンドを実行します</p>
-<pre class="hljs"><code><div>  cd ~/Desktop/setupwsl2/scripts
-  powershell <span class="hljs-literal">-ExecutionPolicy</span> RemoteSigned <span class="hljs-operator">-File</span> <span class="hljs-string">"restore_power_settings.ps1"</span>
+<pre class="hljs"><code><div>  cd ~/Desktop/wsl2_setup_fortran<span class="hljs-literal">-main</span>/wsl2_setup_fortran<span class="hljs-literal">-main</span>/scripts
+  powershell <span class="hljs-literal">-ExecutionPolicy</span> ByPass <span class="hljs-operator">-File</span> <span class="hljs-string">"restore_power_settings.ps1"</span>
 </div></code></pre>
   <img src="./img/restore_power_settings.png" alt="restore_power_settings" width="1000"/>
 <p>正常にスクリプトが終了しない場合は<a href="https://pc-karuma.net/windows10-power-settings/#%E9%9B%BB%E6%BA%90%E3%83%97%E3%83%A9%E3%83%B3%E3%81%AE%E5%A4%89%E6%9B%B4">電源プランの設定方法のリンク</a>を参照して電源プランを<span style="color:red">&quot;do_not_turn_off&quot;以外</span>にしてください(オススメは&quot;バランス&quot;です)</p>
@@ -583,15 +605,10 @@ powershellを管理者権限で開いて以下のコマンドを実行します<
 <p><span style="color:darkorange">計算機へのログインのためのユーザを作成済み</span>の場合、以下の設定を行ってください</p>
 <ul>
 <li>
-<p>(公開鍵ログインの場合)秘密鍵を$HOME/.ssh/にコピー<br>
+<p>権限の変更(公開鍵認証の場合)<br>
+Ubuntuで以下のコマンドを実行
 (例) C:\Users\noda\.ssh\ims_rsa という秘密鍵ファイルを持っている場合、Ubuntuで以下のコマンドを実行</p>
-<pre class="hljs"><code><div>  cp /mnt/c/Users/noda/.ssh/ims_rsa <span class="hljs-variable">$HOME</span>/.ssh/
-</div></code></pre>
-</li>
-<li>
-<p>権限の変更<br>
-Ubuntuで以下のコマンドを実行</p>
-<pre class="hljs"><code><div>  chmod 600 <span class="hljs-variable">$HOME</span>/.ssh/*
+<pre class="hljs"><code><div>  chmod 600 /mnt/c/Users/noda/.ssh/ims_rsa
 </div></code></pre>
 </li>
 <li>
@@ -623,7 +640,7 @@ Ubuntuで以下のコマンドを実行</p>
 <a href="https://runble1.com/scp-config/#toc2">scpコマンド</a>などもimsやrelqc01などのHost名で指定できるのでコマンドの簡略化につながります</p>
 </li>
 </ul>
-<h3 id="34-%E5%88%86%E5%AD%90%E7%A0%94%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92vscode%E3%81%A7%E7%B7%A8%E9%9B%86%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B">3.4. 分子研のファイルをVScodeで編集可能にする</h3>
+<h3 id="35-%E5%88%86%E5%AD%90%E7%A0%94%E3%81%AE%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92vscode%E3%81%A7%E7%B7%A8%E9%9B%86%E5%8F%AF%E8%83%BD%E3%81%AB%E3%81%99%E3%82%8B">3.5. 分子研のファイルをVScodeで編集可能にする</h3>
 <blockquote>
 <p><strong>!!!!!!!!!!! 注意 !!!!!!!!!!!<br>
 この手順を行うと自動マウントの設定が行われるため<br>
@@ -654,7 +671,7 @@ alias imsumount='sudo umount -f $HOME/sm2'
 <p>source $HOME/.profile を実行するか、Ubuntuの再起動後に設定が適用されます</p>
 </blockquote>
   </details>
-<h3 id="35-cisco-anyconnect%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABhinet%E5%A4%96%E9%83%A8%E3%81%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%8B%E3%82%89-relqc-system-%E6%8E%A5%E7%B6%9A%E6%99%82%E3%81%AB%E5%BF%85%E8%A6%81">3.5. Cisco anyconnectのインストール(HINET外部のネットワークから relqc system 接続時に必要)</h3>
+<h3 id="36-cisco-anyconnect%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%ABhinet%E5%A4%96%E9%83%A8%E3%81%AE%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%8B%E3%82%89-hinet%E5%86%85%E9%83%A8%E3%81%AE%E3%82%B3%E3%83%B3%E3%83%94%E3%83%A5%E3%83%BC%E3%82%BF%E6%8E%A5%E7%B6%9A%E6%99%82%E3%81%AB%E5%BF%85%E8%A6%81">3.6. Cisco anyconnectのインストール(HINET外部のネットワークから HINET内部のコンピュータ接続時に必要)</h3>
 <ul>
 <li>
 <p>以下のリンクにアクセスしてCisco anyconnectをダウンロード<br>
@@ -670,24 +687,35 @@ alias imsumount='sudo umount -f $HOME/sm2'
 <ul>
 <li>Windows(powershellを管理者で実行できない場合は電源設定以外のこれらの設定を手動で行ってください)
 <ul>
+<li><a name='intializewindowssettings'></a>initialize_windows_settings.ps1
+<ul>
 <li>スクリプト実行中に<a href="https://docs.microsoft.com/ja-jp/windows-hardware/design/device-experiences/powercfg-command-line-options">Windowsが勝手にスリープ状態にならないようにする</a></li>
 <li><a href="https://zenn.dev/hashiba/articles/wls2-on-cisco-anyconnect#%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E8%A8%AD%E5%AE%9A">Cisco any connectの設定</a>(Ubuntu使用時)</li>
+<li>WSL機能の有効化</li>
+<li>WSL用のXserverの設定</li>
+</ul>
+</li>
+<li><a name='windowssetup'></a>windowssetup.ps1
+<ul>
 <li>必要なソフトウェア<a href="https://code.visualstudio.com/">VScode</a>, <a href="https://sevenzip.osdn.jp/">7zip</a>, <a href="https://winscp.net/eng/index.php">WinSCP</a>, <a href="https://gitforwindows.org/">Git for windows</a>, <a href="https://www.microsoft.com/ja-jp/p/windows-terminal/9n0dx20hk701">Windows Terminal</a>, <a href="https://ttssh2.osdn.jp/index.html.ja">Teraterm</a>, <a href="https://sourceforge.net/projects/vcxsrv/">VcXsrv</a>のインストール</li>
 <li><a href="https://docs.microsoft.com/windows/wsl/install">WSLおよびUbuntuのインストール</a></li>
 </ul>
 </li>
+</ul>
+</li>
 <li>WSL2
 <ul>
-<li>writeubuntusettings.sh
+<li><a name='writeubuntusettings'></a>writeubuntusettings.sh
 <ul>
 <li><a href="https://zuntan02.hateblo.jp/entry/2020/08/07/120007">DNSの不備が生じる可能性</a>を排除するため使用するDNSサーバを8.8.8.8に固定化</li>
+<li>/etc/wsl.confに[automount]のオプションを加えることで<a href="https://riosu.hateblo.jp/entry/2018/09/12/205117">UbuntuからWindowsのファイルの権限を変更可能にする</a></li>
 <li>(分子研環境用)分子研のファイルをVScodeを使って編集するために/etc/fuse.confにuser_allow_otherを追加</li>
 <li>Xサーバを用いてGUIアプリを開くときのDISPLAYの設定がWSL起動時に毎回変わるので<a href="https://github.com/microsoft/WSL/issues/4106#issuecomment-721750322">DISPLAYの設定自体を自動化</a></li>
 <li>$HOME/.ssh/configにsshの設定のテンプレートを作成</li>
 <li><a href="https://askubuntu.com/questions/683406/how-to-automate-dpkg-reconfigure-locales-with-one-command">localeの設定</a>(en_US-UTF8に設定しています)</li>
 </ul>
 </li>
-<li>ubuntusoftwareinstall.sh
+<li><a name='ubuntusoftwareinstall'></a>ubuntusoftwareinstall.sh
 <ul>
 <li>OSのアップデート</li>
 <li>gcc,gfortran関連で必要なライブラリをインストール</li>
@@ -698,7 +726,7 @@ alias imsumount='sudo umount -f $HOME/sm2'
 <li>pythonのライブラリのインストール</li>
 </ul>
 </li>
-<li>vscodeubuntusetup.sh
+<li><a name='vscodeubuntusetup'></a>vscodeubuntusetup.sh
 <ul>
 <li>Fortran開発のためのVScodeの設定ファイルの作成</li>
 <li>VScode拡張機能のインストール</li>
@@ -720,6 +748,30 @@ alias imsumount='sudo umount -f $HOME/sm2'
 <li><a href="https://docs.microsoft.com/ja-jp/windows/wsl/setup/environment">WSL2を用いた開発環境の構築についての公式記事</a></li>
 </ul>
 </li>
+</ul>
+<h2 id="6-a-namefilesa%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E4%B8%80%E8%A6%A7">6. <a name='files'></a>ファイル一覧</h2>
+<ul>
+<li>img (README用画像フォルダ)</li>
+<li>scripts (スクリプト&amp;設定ファイル保存フォルダ)
+<ul>
+<li>config.xlaunch (Xサーバ設定用ファイル)</li>
+<li>copy.ps1 (WindowsからUbuntuにファイルコピーをするスクリプト)</li>
+<li>copyfile.bat (ダブルクリックでcopy.ps1を実行するためのファイル)</li>
+<li>do_not_power_off.pow (スクリプト実行中に勝手にスリープ状態にならないようにするための設定ファイル)</li>
+<li>enable_wsl2_feature.ps1 (WSL2の機能を有効化するスクリプト)</li>
+<li>imsautomount.sh (分子研で開発する人のためのスクリプト)</li>
+<li>initialize_windows_settings.ps1 (WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理)</li>
+<li>restore_power_settings.ps1 (セットアップが終わったあとにもとの電源プランに戻すスクリプト)</li>
+<li>setup.bat (Windowsの管理者権限を持っていない人用(いくつかのソフトウェア、タスクの設定は拒否されるため自動化できません))</li>
+<li>ubuntusoftwareinstall.sh (Ubuntuのソフトウェア一括インストールスクリプト)</li>
+<li>Update Anyconnect Adapter interface Metric for WSL2.xml (Ubuntuとwindowsをvpnを使用中でもネットワーク的に繋がるようにする設定のファイル)</li>
+<li>UpdateAnyConnectinterfaceMetric.ps1 (Ubuntuとwindowsをvpnを使用中でもネットワーク的に繋がるようにするスクリプト)</li>
+<li>vscodeubuntusetup.sh (Fortran開発のためのRemote WSL VScodeの設定)</li>
+<li>windowssetup.ps1 (Windowsに開発に必須/便利なソフトウェアのインストールを行うスクリプト)</li>
+<li>writeubuntusettings.sh (Ubuntuの設定ファイルの書き換えスクリプト)</li>
+</ul>
+</li>
+<li>README (このファイル(pdf,html,mdの3つの形式で保存してあります))</li>
 </ul>
 
 </body>
