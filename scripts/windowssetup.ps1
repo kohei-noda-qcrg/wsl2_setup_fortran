@@ -2,10 +2,6 @@
 # Install wsl (Ubuntu)
 #########################
 Function ManuallyInstallWSL2() {
-    # WSL 2 Kernel Update
-    Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi -UseBasicParsing
-    msiexec /i wsl_update_x64.msi /passive /norestart
-    Remove-Item wsl_update_x64.msi
     # Set default WSL version to 2
     wsl --set-default-version 2
     # Install Ubuntu
