@@ -101,13 +101,6 @@ dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux 
 # Enable Virtual Machine platform feature
 dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
 
-# WSL 2 Kernel Update
-Write-Host "Start downloading a wsl2 kernel update file"
-Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi -UseBasicParsing
-Write-Host "Downloaded a wsl2 kernel update file"
-msiexec /i wsl_update_x64.msi /passive /norestart
-Write-Host "Applied a wsl2 kernel update file"
-
 ######################################
 # Disable cisco any connect only wsl2
 ######################################
