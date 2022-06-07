@@ -69,7 +69,7 @@ else
 fi
 
 # Write settings.json for Modern Fortran developers
-print "{\n\t\"fortran.linter.compiler\":\t\"gfortran\",\n\t\"fortran.formatting.fprettifyArgs\": [\"-i 4\"],\n\t\"fortran.formatting.formatter\": \"fprettify\",\n\t\"fortran.fortls.path\":\t\"${fortls}\",\n}" > "$settingfilepath"
+echo -e "{\n\t\"fortran.linter.compiler\":\t\"gfortran\",\n\t\"fortran.formatting.fprettifyArgs\": [\"-i 4\"],\n\t\"fortran.formatting.formatter\": \"fprettify\",\n\t\"fortran.fortls.path\":\t\"${fortls}\",\n}" > "$settingfilepath"
 
 # Check gfortran exsists
 gfortranpath=$(command -v gfortran)
