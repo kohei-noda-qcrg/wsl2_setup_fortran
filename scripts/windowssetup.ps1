@@ -1,4 +1,4 @@
-﻿#########################
+#########################
 # Install wsl (Ubuntu)
 #########################
 Function ManuallyInstallWSL2() {
@@ -9,6 +9,14 @@ Function ManuallyInstallWSL2() {
     Add-AppxPackage -Path linux.appx
     Remove-Item linux.appx
 }
+
+# WSL 2 Kernel Update
+Write-Host "Start downloading a wsl2 kernel update file"
+Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi -UseBasicParsing
+Write-Host "Downloaded a wsl2 kernel update file"
+msiexec /i wsl_update_x64.msi /passive /norestart
+Write-Host "Applied a wsl2 kernel update file"
+
 # Check if wsl command is recognized on your computer (KB5004296 is required)
 # See also : https://forest.watch.impress.co.jp/docs/news/1342078.html
 $wslcommand = "wsl"
