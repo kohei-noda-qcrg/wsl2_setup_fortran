@@ -25,12 +25,6 @@ if ($winver -lt 18362){
     exit
 }
 
-# Enable wsl feature
-dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
-# Enable Virtual Machine platform feature
-dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
-
-
 ######################################
 # Power settings
 ######################################
@@ -97,6 +91,23 @@ if ($defaultsetting -ne -1) {
 else {
     cantgetGUIDerr
 }
+
+######################################
+# Enable wsl2 feature and update kernel
+######################################
+
+# Enable wsl feature
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+# Enable Virtual Machine platform feature
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+
+# WSL 2 Kernel Update
+Write-Host "Start downloading a wsl2 kernel update file"
+Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi -UseBasicParsing
+Write-Host "Downloaded a wsl2 kernel update file"
+msiexec /i wsl_update_x64.msi /passive /norestart
+Write-Host "Applied a wsl2 kernel update file"
+Remove-Item wsl_update_x64.msi
 
 ######################################
 # Disable cisco any connect only wsl2
