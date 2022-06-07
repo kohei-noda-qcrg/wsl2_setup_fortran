@@ -107,7 +107,6 @@ Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl
 Write-Host "Downloaded a wsl2 kernel update file"
 msiexec /i wsl_update_x64.msi /passive /norestart
 Write-Host "Applied a wsl2 kernel update file"
-Remove-Item wsl_update_x64.msi
 
 ######################################
 # Disable cisco any connect only wsl2
