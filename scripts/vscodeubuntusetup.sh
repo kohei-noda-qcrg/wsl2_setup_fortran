@@ -37,8 +37,7 @@ code --install-extension fortran-lang.linter-gfortran --force # Fortran linter, 
 # Git/Github
 code --install-extension mhutchie.git-graph --force # View git history as a graphical tree
 code --install-extension donjayamanne.githistory --force # Add convenient features to Vscode Source control tab
-code --install-extension KnisterPeter.vscode-github --force # Support for github
-code --install-extension GitHub.vscode-pull-request-github --force # Support for github pull requests and issues
+code --install-extension GitHub.vscode-pull-request-github --force # Support for Github, github pull requests and issues
 code --install-extension eamodio.gitlens --force # Visualize code authorship and so on
 
 # Markdown
