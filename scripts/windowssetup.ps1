@@ -76,6 +76,11 @@ if ( -not ( Get-Command $winget -ErrorAction "silentlycontinue" ) ) {
     Write-Host "winget command does not exist.`n Try to install winget manually using invoke-webrequest and Add-AppxPackage!"
     invoke-webrequest -uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx -UseBasicParsing
     Write-Host "Downloaded VCLibs runtime package"
+    invoke-webrequest -uri https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.0 -outfile $Env:Temp\microsoft.ui.xaml.2.7.0.zip
+    Write-Host "Downloaded Windows UI library"
+    Expand-Archive -Path $Env:Temp\microsoft.ui.xaml.2.7.0.zip -DestinationPath $Env:Temp
+    Add-AppxPackage -Path $Env:Temp\microsoft.ui.xaml.2.7.0\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
+    Write-Host "Applied Windows UI library"
     invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
     Write-Host "Downloaded winget installer"
     Add-AppxPackage -Path $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx
