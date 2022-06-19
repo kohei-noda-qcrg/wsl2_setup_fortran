@@ -1,0 +1,19 @@
+name: WSL2_and_fortran_setup_test
+
+on: push
+
+jobs:
+  CI:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: run_setup_windows
+        run: |
+          powershell -NoProfile -ExecutionPolicy ByPass ./scripts/initialize_windows_settings.ps1.ps1
+        shell: pwsh
+      - name: run_install_wsl2
+        run: |
+          powershell -NoProfile -ExecutionPolicy ByPass ./scripts/windowssetup.ps1
+        shell: pwsh

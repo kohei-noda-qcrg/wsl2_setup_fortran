@@ -3,6 +3,7 @@
 !.editorconfig
 !.gitignore
 !.vscode
+!.github
 README.png
 README.jpeg
 README_tmp.html
