@@ -18,3 +18,8 @@ jobs:
           cd ./scripts
           powershell -NoProfile -ExecutionPolicy ByPass ./windowssetup.ps1
         shell: pwsh
+      - name: wsl setup
+        run: |
+          wsl
+          pwd
+        shell:pwsh
