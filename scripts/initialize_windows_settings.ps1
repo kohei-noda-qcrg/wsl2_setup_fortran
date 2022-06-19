@@ -73,7 +73,7 @@ $defaultsetting = getGUID("*")
 if ($defaultsetting -ne -1) {
     Write-Host "GUID of Default power setting is $defaultsetting"
     Set-Content "$Env:USERPROFILE\power_guid_default_setting\default_power_setting_guid.txt" $defaultsetting
-    Copy-Item ".\do_not_turn_off.pow" "$Env:USERPROFILE\power_guid_default_setting"
+    Copy-Item "$path\do_not_turn_off.pow" "$Env:USERPROFILE\power_guid_default_setting"
     powercfg -import "$Env:USERPROFILE\power_guid_default_setting\do_not_turn_off.pow"
     Remove-Item "$Env:USERPROFILE\power_guid_default_setting\do_not_turn_off.pow"
     powercfg -list
@@ -109,8 +109,8 @@ dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /nores
 # Create a task schedule for the task to disable vpn only for wsl2 related packets.
 # See also : https://zenn.dev/hashiba/articles/wls2-on-cisco-anyconnect#%E3%83%AB%E3%83%BC%E3%83%86%E3%82%A3%E3%83%B3%E3%82%B0%E3%81%AE%E8%A8%AD%E5%AE%9A
 New-Item -Path "$Env:USERPROFILE\scripts" -Force -ItemType Directory
-Copy-Item '.\UpdateAnyConnectInterfaceMetric.ps1' "$Env:USERPROFILE\scripts"
-schtasks /create /tn autoUpdatAnyconnectAdapterMetrixForWSL2 /xml '.\Update Anyconnect Adapter Interface Metric for WSL2.xml'
+Copy-Item "$path\UpdateAnyConnectInterfaceMetric.ps1" "$Env:USERPROFILE\scripts"
+schtasks /create /tn autoUpdatAnyconnectAdapterMetrixForWSL2 /xml "$path\Update Anyconnect Adapter Interface Metric for WSL2.xml"
 
 ######################################
 # Copy X-server settings
