@@ -81,11 +81,12 @@ if ( -not ( Get-Command $winget -ErrorAction "silentlycontinue" ) ) {
     Expand-Archive -Path $Env:Temp\microsoft.ui.xaml.2.7.0.zip -DestinationPath $Env:Temp
     Add-AppxPackage -Path $Env:Temp\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
     Write-Host "Applied Windows UI library"
-    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
+    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/b0a0692da1034339b76dce1c298a1e42_License1.xml -outfile $Env:Temp\b0a0692da1034339b76dce1c298a1e42_License1.xml -UseBasicParsing
+    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
     Write-Host "Downloaded winget installer"
     Add-AppxPackage -Path $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx
     Write-Host "Applied VCLibs runtime package"
-    Add-AppxPackage -Path $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+    Add-AppxPackage -Path $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -LicensePath $Env:Temp\b0a0692da1034339b76dce1c298a1e42_License1.xml -Verbose
     Write-Host "Installed winget installer"
 }
 
