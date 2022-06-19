@@ -9,7 +9,8 @@ Function ManuallyInstallWSL2() {
     Add-AppxPackage -Path linux.appx
     Remove-Item linux.appx
 }
-
+$scriptPath = $MyInvocation.MyCommand.Path
+$path = Split-Path -Parent $scriptPath
 # WSL 2 Kernel Update
 Write-Host "Start downloading a wsl2 kernel update file"
 Invoke-WebRequest -Uri https://wslstorestorage.blob.core.windows.net/wslblob/wsl_update_x64.msi -OutFile wsl_update_x64.msi -UseBasicParsing
@@ -65,58 +66,12 @@ elseif ($winver -lt 19041){ # Cannot use wsl --install command under 19041 https
     }
 }
 
-
 ##############################
-# winget setup
+# Install chocolatey
 ##############################
-# If you don't have winget, Manually install winget on $Env:Temp Folder.
-# See also : https://zenn.dev/nobokko/articles/idea_winget_wsb#windows%E3%82%B5%E3%83%B3%E3%83%89%E3%83%9C%E3%83%83%E3%82%AF%E3%82%B9%E3%81%ABwinget%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%97%E3%82%88%E3%81%86%EF%BC%81%E3%81%A8%E3%81%84%E3%81%86%E8%A9%B1
-$winget = "winget"
-if ( -not ( Get-Command $winget -ErrorAction "silentlycontinue" ) ) {
-    Write-Host "winget command does not exist.`n Try to install winget manually using invoke-webrequest and Add-AppxPackage!"
-    invoke-webrequest -uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx -UseBasicParsing
-    Write-Host "Downloaded VCLibs runtime package"
-    invoke-webrequest -uri https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.0 -outfile $Env:Temp\microsoft.ui.xaml.2.7.0.zip
-    Write-Host "Downloaded Windows UI library"
-    Expand-Archive -Path $Env:Temp\microsoft.ui.xaml.2.7.0.zip -DestinationPath $Env:Temp
-    Add-AppxPackage -Path $Env:Temp\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
-    Write-Host "Applied Windows UI library"
-    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/b0a0692da1034339b76dce1c298a1e42_License1.xml -outfile $Env:Temp\b0a0692da1034339b76dce1c298a1e42_License1.xml -UseBasicParsing
-    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.2.10271/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
-    Write-Host "Downloaded winget installer"
-    Add-AppxPackage -Path $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx
-    Write-Host "Applied VCLibs runtime package"
-    Add-AppxPackage -Path $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -LicensePath $Env:Temp\b0a0692da1034339b76dce1c298a1e42_License1.xml -Verbose
-    Write-Host "Installed winget installer"
-}
+Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 ##############################
 # Install softwares (windows)
 ##############################
-
-# WindowsTerminal (https://www.microsoft.com/ja-jp/p/windows-terminal/9n0dx20hk701)
-# is a powerful terminal software. I recommend you to use this software when you use WSL2 ubuntu.
-winget install --silent Microsoft.WindowsTerminal --accept-package-agreements --accept-source-agreements
-
-# Vscode (https://code.visualstudio.com/)
-# is a very powerful editor. I strongly suggest you to use this editor when you edit any text files.
-# (Install option reference is here : https://proudust.github.io/20200726-winget-install-vscode/)
-winget install --silent Microsoft.VisualStudioCode --override "/VERYSILENT /NORESTART /mergetasks=""!runcode,desktopicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"""
-
-# You can extract tar.gz etc. files by using 7zip (https://sevenzip.osdn.jp/).
-winget install --silent 7zip.7zip
-
-# Winscp (https://winscp.net/eng/docs/lang:jp)
-# provides you to download/upload files with calculation servers by using scp (or sftp) protocol.
-winget install --silent --scope user WinSCP.WinSCP
-
-# Git (https://gitforwindows.org/) supports git command on windows.
-winget install --silent Git.Git
-
-# Teraterm (https://ttssh2.osdn.jp/) is a terminal software.
-# If you don't like other terminal softwares, you can use this software.
-winget install --silent TeraTermProject.teraterm --override "/VERYSILENT"
-
-# VcXsrv (https://sourceforge.net/projects/vcxsrv/) is a X-server software.
-# If you want to use GUI software when you use CLI WSL linux, VcXsrv supports this(GUI) feature.
-winget install --silent marha.VcXsrv
+cinst $path\packages.conf -y
