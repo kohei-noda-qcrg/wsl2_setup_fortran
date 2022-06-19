@@ -22,4 +22,4 @@ jobs:
         run: |
           wsl
           pwd
-        shell:pwsh
+        shell: pwsh
