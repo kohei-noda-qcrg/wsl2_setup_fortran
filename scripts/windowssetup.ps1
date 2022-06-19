@@ -79,8 +79,7 @@ if ( -not ( Get-Command $winget -ErrorAction "silentlycontinue" ) ) {
     invoke-webrequest -uri https://www.nuget.org/api/v2/package/Microsoft.UI.Xaml/2.7.0 -outfile $Env:Temp\microsoft.ui.xaml.2.7.0.zip
     Write-Host "Downloaded Windows UI library"
     Expand-Archive -Path $Env:Temp\microsoft.ui.xaml.2.7.0.zip -DestinationPath $Env:Temp
-    ls $Env:Temp
-    Add-AppxPackage -Path $Env:Temp\microsoft.ui.xaml.2.7.0\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
+    Add-AppxPackage -Path $Env:Temp\tools\AppX\x64\Release\Microsoft.UI.Xaml.2.7.appx
     Write-Host "Applied Windows UI library"
     invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
     Write-Host "Downloaded winget installer"
