@@ -74,4 +74,4 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 ##############################
 # Install softwares (windows)
 ##############################
-cinst $path\packages.conf -y
+cinst $path\packages.config -y
