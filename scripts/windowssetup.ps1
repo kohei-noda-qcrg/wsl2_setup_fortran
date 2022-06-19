@@ -54,6 +54,7 @@ elseif ($winver -lt 19041){ # Cannot use wsl --install command under 19041 https
             wsl --set-default-version 2
             wsl --install -d Ubuntu
             wsl --set-default Ubuntu
+            wsl -l -v
         }
         else {
             Write-Host "$command does not exist. To use $command command, Install dependencies."
