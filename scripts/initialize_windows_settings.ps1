@@ -3,12 +3,13 @@ $ErrorActionPreference = "Stop" # Stop to executing program when error is occure
 ##################################
 # Check whether scripts are exist
 ##################################
-
+$scriptPath = $MyInvocation.MyCommand.Path
+$path = Split-Path -Parent $scriptPath
 # If even one file($data) does not exist, the script will stop executing.
 $data = @('config.xlaunch', 'copy.ps1', 'copyfile.bat', 'do_not_turn_off.pow', 'imsautomount.sh', 'restore_power_settings.ps1', 'ubuntusoftwareinstall.sh', 'Update Anyconnect Adapter Interface Metric for WSL2.xml', 'UpdateAnyConnectInterfaceMetric.ps1', 'vscodeubuntusetup.sh', 'windowssetup.ps1', "writeubuntusettings.sh")
 $data | ForEach-Object {
-    if (!(Test-Path -Path $_ -PathType Leaf)) {
-        Write-Host "Error: $_ is not exist."
+    if (!(Test-Path -Path $path\$_ -PathType Leaf)) {
+        Write-Host "Error: $path\$_ is not exist."
         Write-Host "Exit."
         exit
     }

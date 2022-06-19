@@ -75,9 +75,13 @@ $winget = "winget"
 if ( -not ( Get-Command $winget -ErrorAction "silentlycontinue" ) ) {
     Write-Host "winget command does not exist.`n Try to install winget manually using invoke-webrequest and Add-AppxPackage!"
     invoke-webrequest -uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -outfile $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx -UseBasicParsing
-    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/download/v1.0.12576/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
+    Write-Host "Downloaded VCLibs runtime package"
+    invoke-webrequest -uri https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -outfile $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle -UseBasicParsing
+    Write-Host "Downloaded winget installer"
     Add-AppxPackage -Path $Env:Temp\Microsoft.VCLibs.x64.14.00.Desktop.appx
+    Write-Host "Applied VCLibs runtime package"
     Add-AppxPackage -Path $Env:Temp\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
+    Write-Host "Installed winget installer"
 }
 
 ##############################
