@@ -65,6 +65,11 @@ elseif ($winver -lt 19041){ # Cannot use wsl --install command under 19041 https
         ManuallyInstallWSL2
     }
 }
+##############################
+# Add a runtime package
+##############################
+Invoke-WebRequest -Uri https://aka.ms/Microsoft.VCLibs.x64.14.00.Desktop.appx -OutFile Microsoft.VCLibs.x64.14.00.Desktop.appx -UseBasicParsing
+Add-AppxPackage -Path Microsoft.VCLibs.x64.14.00.Desktop.appx
 
 ##############################
 # Install chocolatey
