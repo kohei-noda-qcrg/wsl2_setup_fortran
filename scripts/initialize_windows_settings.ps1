@@ -116,7 +116,7 @@ schtasks /create /tn autoUpdatAnyconnectAdapterMetrixForWSL2 /xml '.\Update Anyc
 # Copy X-server settings
 ######################################
 
-Copy-Item '.\config.xlaunch' "$Env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
+Copy-Item "$path\config.xlaunch" "$Env:USERPROFILE\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup"
 
 
 #####################################
