@@ -17,5 +17,5 @@ jobs:
       - name: run_install_wsl2
         run: |
           cd ./scripts
-          powershell -NoProfile -ExecutionPolicy ByPass ./scripts/windowssetup.ps1
+          powershell -NoProfile -ExecutionPolicy ByPass ./windowssetup.ps1
         shell: pwsh
