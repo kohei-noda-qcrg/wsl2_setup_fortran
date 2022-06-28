@@ -427,4 +427,4 @@
   - vscodeubuntusetup.sh (Fortran開発のためのRemote WSL VScodeの設定)
   - windowssetup.ps1 (Windowsに開発に必須/便利なソフトウェアのインストールを行うスクリプト)
   - writeubuntusettings.sh (Ubuntuの設定ファイルの書き換えスクリプト)
-- README (このファイル(pdf,html,mdの3つの形式で保存してあります))
+- README (このファイル)
