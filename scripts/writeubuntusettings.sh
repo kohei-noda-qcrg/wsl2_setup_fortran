@@ -11,6 +11,8 @@ if [ -e /etc/resolv.conf ]; then
 	sudo mv /etc/resolv.conf /etc/resolv.conf.old
 fi
 sudo sh -c 'echo "nameserver 8.8.8.8" > /etc/resolv.conf'
+sudo chattr +i /etc/resolv.conf
+
 echo -e "DNS server settings successed"
 
 # Enable WSL2 to change permissions on Windows files.
