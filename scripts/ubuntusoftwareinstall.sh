@@ -36,7 +36,7 @@ python -m pip install -U pip --no-warn-script-location
 python -m pip install numpy scipy pandas matplotlib --no-warn-script-location
 
 # Install fortran-language-server for VScode extention (Fortran Intellisense)
-python -m pip install fortls fprettify --no-warn-script-location
+python -m pip install fortls fprettify pytest --no-warn-script-location
 
 echo -e "============================="
 echo -e "WSL2 ubuntu setup script ended. Please restart WSL2.\n1. Open powershell\n2. Type \" wsl --shutdown \"\n3. Restart Ubuntu"
