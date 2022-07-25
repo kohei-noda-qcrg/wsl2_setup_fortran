@@ -109,7 +109,4 @@ winget install --silent TeraTermProject.teraterm --override "/VERYSILENT"
 
 # VcXsrv (https://sourceforge.net/projects/vcxsrv/) is a X-server software.
 # If you want to use GUI software when you use CLI WSL linux, VcXsrv supports this(GUI) feature.
-winget install --silent marha.VcXsrv
 
-# Add filewall rule (true : xserver public)
-Set-NetFirewallRule -DisplayName "VcXsrv windows xserver"  -Enabled true
