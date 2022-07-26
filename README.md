@@ -54,21 +54,14 @@
   <img src="./img/unzip03.png" alt="desktop" width="1000"/>
 
 ### 3.1. Windows上の開発ツール等のインストール
+- まずはあなたがログイン中のユーザがWindowsの管理者であることを確認します(管理者でないと以降の作業がうまくいきません)
+  - windowsの設定 → アカウント → ユーザの情報 で表示されるユーザのアイコンの下に管理者(又はAdministrator)という文字列があることを確認できればOKです
+  - [windowsの設定がどこにあるかわからない場合はこちらを参照してください](https://support.microsoft.com/ja-jp/windows/windows-10-%E3%81%A7%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B-6ffbef87-e633-45ac-a1e8-b7a834578ac6)
+  - 管理者でない場合、このスクリプト群は使えないので[管理者になる方法を参照](https://www.fmworld.net/cs/azbyclub/qanavi/jsp/qacontents.jsp?PID=8610-8270)してください
 
 - powershellを<span style="color:darkorange">管理者で実行</span>します  
   <img src="./img/open_powershell_as_administrator.png" alt="open_powershell_as_administrator" width="1000"/>
-  <details><summary style="color:red">powershellを管理者で実行できない場合</summary><div>
 
-  >(powershellを管理者で実行できない場合)  
-  >wsl2_setup_fortran-main/scriptsフォルダにあるsetup.batをダブルクリックしてWindows上の開発ツール等のインストールを行ってください  
-  >
-  >ただしこの方法の場合、ユーザ自体が管理者ではない場合はいくつかのソフトウェアがインストールできなかったりするため  
-  >[必要なソフトウェア等を手動インストール](#whatsdoingthesescripts)する(このスクリプト群はなにをしているのか？のWindowsの欄のセットアップを手動実行する)ことをお勧めします  
-  >
-  >またpowershellが管理者権限で開けないだけでユーザ自体が管理者の場合、VPNの設定を除けば自動インストールが可能ですが  
-  >UAC(ユーザアカウント制御)のポップアップが表示されるのでその度に許可をしてください  
-
-  </div></details>
 
 - 以下のコマンドを実行(WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理をします)
 
@@ -78,8 +71,37 @@
   ```
 
   <img src="./img/enable_wsl2_feature.png" alt="enable_wsl2_feature" width="1000"/>
+  
+  <details><summary style="color:red">!!! cd : パス 'C:\Users\(任意の文字列)' が存在しないため検出できません。と出てきて進めない場合ここをクリック !!!</summary><div>
+  
+  > [理由]  
+  > あなたが展開したスクリプトの場所が  
+  > $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts ではないことによって起こっている問題です  
+  > (以降 cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts をするような指示がいくつかありますが、これらをすべて以下の正しいスクリプトの場所にcdするようにしてください)  
+  > [解決法]  
+  > よくあるスクリプトの場所は  
+  > $home/Desktop/wsl2_setup_fortran-main/scripts なので  
+  > ```sh
+  >  cd $home/Desktop/wsl2_setup_fortran-main/scripts
+  > ```
+  > としてエラーが出なければ  
+  > ```powershell
+  >  powershell -ExecutionPolicy ByPass -File "initialize_windows_settings.ps1"
+  > ```
+  > を続けて実行してください
+  > cd $home/Desktop/wsl2_setup_fortran-main/scripts でもエラーが発生する場合は  
+  > 前の手順で展開したzipファイルの[パスをこのリンクを参考にコピー](http://faq3.dospara.co.jp/faq/show/4883?category_id=22&site_domain=default#anc02)して
+  > ```powershell
+  >  cd コピーしたパスを張り付ける(ctrl+vで張り付け可能です)
+  >  powershell -ExecutionPolicy ByPass -File "initialize_windows_settings.ps1"
+  > ```
+  > を実行してください。以上で問題は解決するはずです
+  > (※以降 cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts をするような指示がいくつかありますが、これらをすべて以上の手順のうちエラーが出なかった正しいスクリプトの場所にcdすることを忘れないようにしてください)
+  
 
-  <span style="color:darkorange">一旦再起動</span>してから再度powershellを管理者権限で開いて以下を実行(各種ソフトウェアのインストールをします)  
+  </div></details>
+  
+  <span style="color:darkorange">Windowsを一度再起動</span>してから再度powershellを管理者権限で開いて以下を実行(各種ソフトウェアのインストールをします)  
 
   ```powershell
     cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
@@ -115,7 +137,7 @@
 
 ### 3.2. WSL2上のUbuntuのセットアップ
 
-- 1.のセットアップの途中でUbuntuが立ち上がっているはずなのでUbuntu用のユーザ名とパスワードを作成  
+- 1.のセットアップの途中でUbuntuが立ち上がっているはずなのでUbuntu用のユーザ名とパスワードを作成(以下のリンクのUbuntu用ユーザアカウントの設定の部分だけ実行してください)  
   [ユーザ名とパスワードの設定方法のリンク](https://www.aise.ics.saitama-u.ac.jp/~gotoh/HowToInstallUbuntu2004OnWSL2.html#:~:text=%E5%88%9D%E6%9C%9F%E8%A8%AD%E5%AE%9A%E3%81%8C%E7%B5%82%E3%82%8F%E3%82%8B%E3%81%A8%E3%83%AD%E3%82%B0%E3%82%A4%E3%83%B3%E5%90%8D%E3%81%8C%E6%B1%82%E3%82%81%E3%82%89%E3%82%8C%E3%82%8B%E3%80%82)
 
   ユーザを正しく作成できたら以下のような画面になっているはずです  
@@ -185,9 +207,9 @@
     powershell -ExecutionPolicy Bypass -File "copy.ps1"
   ```
 
-  正しく実行出来た場合、スクリプト実行後Ubuntuでlsと入力し、Enterを押すと以下の画像のように4つのファイルがあるはずです  
+  正しく実行出来た場合、Ubuntuでlsと入力し、Enterを押すと以下の画像のように4つのファイルがあるはずです  
   <img src="./img/ls.png" alt="ls" width="1000"/>
-- WSL2用のスクリプトを実行  
+- UbuntuでWSL2用のスクリプトを実行  
 
   ```sh
     $HOME/writeubuntusettings.sh && $HOME/ubuntusoftwareinstall.sh
@@ -195,7 +217,7 @@
 
   <img src="./img/run_ubuntusetup.png" alt="run_ubuntusetup" width="1000"/>
 
-  実行時にパスワードを聞かれるので先ほど設定したパスワードを入力してください  
+  スクリプトの実行時にパスワードを聞かれるので先ほどUbuntu用に設定したパスワードを入力してください  
   <details><summary  style="color:red" style="color:red">途中でUbuntuが強制終了したり、正常にスクリプトが終わらなかったらここをクリック！</summary><div>
 
   > <途中でUbuntuが強制終了した場合>  
@@ -244,7 +266,7 @@
   [windows keyからUbuntuを検索](https://www.google.com/search?q=+%E3%82%A2%E3%83%97%E3%83%AA+%E6%A4%9C%E7%B4%A2+windowskey)して起動  
   <img src="./img/launch_ubuntu.png" alt="launch_ubuntu" width="1000"/>
 
-- VScode用のスクリプトを実行  
+- UbuntuでVScode用のスクリプトを実行  
 
   ```sh
     $HOME/vscodeubuntusetup.sh
@@ -253,7 +275,7 @@
   <img src="./img/vscode_ubuntusetup.png" alt="vscode_ubuntusetup" width="1000"/>
 
 - VScodeが起動してくるのでMaterial Icon Themeを有効化  
-  [Material Icon ThemeのOne-click activation](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme#:~:text=One%2Dclick%20activation)を参考にして有効化してください  
+  [Material Icon ThemeのOne-click activation](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme#:~:text=One%2Dclick%20activation)を参考にして有効化してください(見つからないときはVSCodeの右下のベル🔔のマークをクリックすると有効化またはactivateというボタンが出てきます)  
   <img src="./img/activate_material_icon.png" alt="activate_material_icon" width="1000"/>
 
 ### 3.3. 電源プランをデフォルトに戻す
@@ -272,7 +294,14 @@
 
 ### 3.4. SSHの設定
 
-  <span style="color:darkorange">計算機へのログインのためのユーザを作成済み</span>の場合、以下の設定を行ってください  
+  <span style="color:darkorange">計算機へのログインのためのユーザを作成済み</span>の場合、以下の設定を行ってください 
+  
+- sshの設定はUbuntuとWindowsの2つ行います
+- ただしVSCodeのremote-sshの機能を使ってリモートでしか作業しないなら、Windowsのsshの設定のみで構わないです
+
+#### Windowsのssh設定
+
+- windowsのssh設定は $home/.ssh/config というファイルで行います
 
 - 権限の変更(公開鍵認証の場合)  
   Ubuntuで以下のコマンドを実行
