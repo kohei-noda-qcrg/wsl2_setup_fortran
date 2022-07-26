@@ -73,7 +73,7 @@
 - 以下のコマンドを実行(WSL2の機能の有効化とWindowsのインストール系スクリプト以外の処理をします)
 
   ```powershell
-    cd ~/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
+    cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
     powershell -ExecutionPolicy ByPass -File "initialize_windows_settings.ps1"
   ```
 
@@ -82,7 +82,7 @@
   <span style="color:darkorange">一旦再起動</span>してから再度powershellを管理者権限で開いて以下を実行(各種ソフトウェアのインストールをします)  
 
   ```powershell
-    cd ~/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
+    cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
     powershell -ExecutionPolicy ByPass -File "windowssetup.ps1"
   ```
 
@@ -134,7 +134,7 @@
   >   powershellを管理者権限で開いて以下のコマンドを実行します
   >
   >   ```powershell
-  >     cd ~/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
+  >     cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
   >     powershell -ExecutionPolicy ByPass -File "reset.ps1"
   >   ```
   >
@@ -181,7 +181,7 @@
   powershellを新しく管理者権限で開き、以下のコマンドを実行します
 
   ```powershell
-    cd ~/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
+    cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
     powershell -ExecutionPolicy Bypass -File "copy.ps1"
   ```
 
@@ -262,7 +262,7 @@
   powershellを管理者権限で開いて以下のコマンドを実行します  
 
   ```powershell
-    cd ~/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
+    cd $home/Desktop/wsl2_setup_fortran-main/wsl2_setup_fortran-main/scripts
     powershell -ExecutionPolicy ByPass -File "restore_power_settings.ps1"
   ```
 
