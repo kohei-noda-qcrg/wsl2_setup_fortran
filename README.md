@@ -21,7 +21,7 @@
 
 ## 2. <a name='attention'></a>注意
 
-- 各コマンドは選択してctrl+cでコピー、右クリックで貼り付けすることができます(Ubuntuはデフォルトではctrl+vで貼り付けはできないので、右クリックで貼り付けを行ってください)
+- 各コマンドは選択してctrl+cでコピー、右クリックで貼り付けすることができます(Powershellはctrl+vで貼り付けできますが、Ubuntuはデフォルトではctrl+vで貼り付けができないので、右クリックで貼り付けを行ってください)
 
 - 必要なファイルはスクリプトの最初に自動的に確認され、ファイルが足りない場合はスクリプトは途中で終了し実行されないように作っています  
   > (カスタムを行いたい方へ)  
@@ -35,7 +35,7 @@
 
 ### 3.1. リポジトリのダウンロードと配置
 
-- [このリポジトリ](https://github.com/kohei-noda-qcrg/wsl2_setup_fortran)にアクセスして<span style="background-color:darkgreen;color:white">Code</span>からZipファイルをダウンロードします
+- [このリポジトリ](https://github.com/kohei-noda-qcrg/wsl2_setup_fortran)にアクセスして<span style="background-color:darkgreen;color:white">Code</span>からZipファイルをダウンロードします(ブラウザの幅が小さいとCodeボタンが表示されないことがあるので、その場合はブラウザを全画面表示にしてください)
 <img src="./img/download_from_github.jpeg" alt="desktop" width="1000"/>
 
 - セットアップ手順を簡単にするためダウンロードしたzipファイル(wsl2_setup_fortran-main)を<span style="color:darkorange">デスクトップに配置</span>してください  
@@ -54,7 +54,7 @@
   <img src="./img/unzip03.png" alt="desktop" width="1000"/>
 
 ### 3.1. Windows上の開発ツール等のインストール
-- まずはあなたがログイン中のユーザがWindowsの管理者であることを確認します(管理者でないと以降の作業がうまくいきません)
+- まずはあなたがログイン中のWindowsユーザがWindowsの管理者であることを確認します(管理者でないと以降の作業がうまくいきません)
   - windowsの設定 → アカウント → ユーザの情報 で表示されるユーザのアイコンの下に管理者(又はAdministrator)という文字列があることを確認できればOKです
   - [windowsの設定がどこにあるかわからない場合はこちらを参照してください](https://support.microsoft.com/ja-jp/windows/windows-10-%E3%81%A7%E8%A8%AD%E5%AE%9A%E3%82%92%E8%A6%8B%E3%81%A4%E3%81%91%E3%82%8B-6ffbef87-e633-45ac-a1e8-b7a834578ac6)
   - 管理者でない場合、このスクリプト群は使えないので[管理者になる方法を参照](https://www.fmworld.net/cs/azbyclub/qanavi/jsp/qacontents.jsp?PID=8610-8270)してください
@@ -90,7 +90,7 @@
   > ```
   > を続けて実行してください
   > cd $home/Desktop/wsl2_setup_fortran-main/scripts でもエラーが発生する場合は  
-  > 前の手順で展開したzipファイルの[パスをこのリンクを参考にコピー](http://faq3.dospara.co.jp/faq/show/4883?category_id=22&site_domain=default#anc02)して
+  > 前の手順で展開したzipファイル(zipファイル自体ではなく展開したほうのフォルダです)の[パスをこのリンクを参考にコピー](http://faq3.dospara.co.jp/faq/show/4883?category_id=22&site_domain=default#anc02)して
   > ```powershell
   >  cd コピーしたパスを張り付ける(ctrl+vで張り付け可能です)
   >  powershell -ExecutionPolicy ByPass -File "initialize_windows_settings.ps1"
