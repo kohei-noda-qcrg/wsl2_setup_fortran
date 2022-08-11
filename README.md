@@ -298,10 +298,28 @@
   
 - sshの設定はUbuntuとWindowsの2つ行います
 - ただしVSCodeのremote-sshの機能を使ってリモートでしか作業しないなら、Windowsのsshの設定のみで構わないです
+- 秘密鍵はOpenssh形式のものを用いてください
 
 #### Windowsのssh設定
 
 - windowsのssh設定は $home/.ssh/config というファイルで行います
+  - WSLを開発に使わないならsshの設定はWindowsだけで十分です
+  
+<$HOME/.ssh/configのテンプレート>
+
+```config
+ServerAliveInterval 60
+ServerAliveCountMax 10
+
+Host ims
+    HostName ccfep.center.ims.ac.jp
+    User {USER_NAME}
+    IdentityFile {IdentityFilePath}
+    ForwardX11  yes
+    ForwardX11Trusted yes
+```
+    
+#### Linuxのssh設定
 
 - 権限の変更(公開鍵認証の場合)  
   Ubuntuで以下のコマンドを実行
